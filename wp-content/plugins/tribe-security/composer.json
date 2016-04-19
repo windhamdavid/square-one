@@ -1,0 +1,14 @@
+{
+    "name": "moderntribe/tribe-security",
+    "description": "Modern Tribe security tweaks.",
+    "type": "wordpress-plugin",
+    "license": "Private",
+    "authors": [
+        {
+            "name": "Peter Chester",
+            "email": "peter@tri.be"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

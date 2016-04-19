@@ -1,0 +1,14 @@
+{
+    "name": "moderntribe/tribe-roles",
+    "description": "Refine and manage the available roles",
+    "type": "wordpress-plugin",
+    "license": "Private",
+    "authors": [
+        {
+            "name": "Peter Chester",
+            "email": "peter@tri.be"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
