@@ -1,0 +1,13 @@
+<svg class="cs-custom-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-290 382 30 30" enable-background="new -290 382 30 30" xml:space="preserve">
+  <g>
+    <g>
+      <polygon points="-282.6,398.4 -283.4,397.6 -280.2,394.5 -283.4,391.4 -282.6,390.6 -278.8,394.5"/>
+    </g>
+    <g>
+      <path d="M-264,408h-22c-0.6,0-1-0.4-1-1v-20c0-0.6,0.4-1,1-1h22c0.6,0,1,0.4,1,1v20C-263,407.6-263.4,408-264,408zM-264,407v0.5V407z M-286,387v20h22v-20H-286z"/>
+    </g>
+    <g>
+      <rect x="-279" y="397" width="5" height="1"/>
+    </g>
+  </g>
+</svg>
