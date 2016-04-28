@@ -38,7 +38,6 @@ function tribe_theme_setup() {
 	include_once 'functions/template-tags/schema.php';
 	include_once 'functions/template-tags/content.php';
 	include_once 'functions/template-tags/comments.php';
-	include_once 'functions/template-tags/panels.php';
 	include_once 'functions/template-tags/branding.php';
 	
 	// Theme

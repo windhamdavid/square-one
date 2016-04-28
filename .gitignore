@@ -34,6 +34,8 @@ wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
 wp-content/tests/
 wp-content/logs/
+tests-config.php
+tests-config-sample.php
 
 wp-content/plugins/fakerpress/
 wp-content/plugins/better-search-replace/
