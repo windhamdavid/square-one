@@ -3,7 +3,6 @@
 namespace Tribe\Project;
 
 use Pimple\Container;
-use Tribe\Libs\Cli\Cli_Provider;
 use Tribe\Libs\Functions\Function_Includer;
 use Tribe\Project\Service_Providers\Asset_Provider;
 use Tribe\Project\Service_Providers\Cache_Provider;
