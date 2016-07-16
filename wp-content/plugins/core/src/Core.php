@@ -3,14 +3,15 @@
 namespace Tribe\Project;
 
 use Pimple\Container;
+use Tribe\Libs\Cli\Cli_Provider;
 use Tribe\Libs\Functions\Function_Includer;
 use Tribe\Project\Service_Providers\Asset_Provider;
 use Tribe\Project\Service_Providers\Cache_Provider;
-use Tribe\Project\Service_Providers\Panel_Intializer_Provider;
-use Tribe\Project\Service_Providers\Theme_Customizer_Provider;
 use Tribe\Project\Service_Providers\Global_Service_Provider;
-use Tribe\Project\Service_Providers\Theme_Provider;
+use Tribe\Project\Service_Providers\Panel_Intializer_Provider;
 use Tribe\Project\Service_Providers\Settings_Provider;
+use Tribe\Project\Service_Providers\Theme_Customizer_Provider;
+use Tribe\Project\Service_Providers\Theme_Provider;
 
 class Core {
 
@@ -34,6 +35,7 @@ class Core {
 
 	public function init() {
 		$this->load_functions();
+		$this->load_cli();
 		$this->load_service_providers();
 		$this->container['service_loader']->initialize_services();
 	}
@@ -41,6 +43,12 @@ class Core {
 	private function load_functions() {
 		Function_Includer::cache();
 		Function_Includer::version();
+	}
+
+	private function load_cli() {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\Tribe\Libs\Cli\Loader::load_commands();
+		}
 	}
 
 	private function load_service_providers() {
