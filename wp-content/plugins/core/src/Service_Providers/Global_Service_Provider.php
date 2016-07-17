@@ -55,7 +55,8 @@ final class Global_Service_Provider extends Tribe_Service_Provider {
 		'Post',
 		'Event',
 		'Organizer',
-		'Venue'
+		'Venue',
+		/*DONTREMOVE*/
 	];
 
 	protected $taxonomies = [
