@@ -7,6 +7,8 @@ use Tribe\Project\Service_Loader;
 use Tribe\Libs\Assets\Asset_Loader;
 use Tribe\Media\Providers\Asset_Provider;
 use Tribe\Media\Providers\Taxonomies_Provider;
+use Tribe\Media\Providers\P2P_Provider;
+use Tribe\Media\Providers\Connections_Provider;
 
 class Main {
 
@@ -28,6 +30,10 @@ class Main {
     }
 
     private function register_providers() {
+        $this->project['connections'] = function() {
+            return new Connections_Provider();
+        };
+
         $this->project['asset_loader'] = function() {
             return new Asset_Loader( Tribe_Media_Path );
         };
@@ -39,11 +45,17 @@ class Main {
         $this->project['taxonomies'] = function() {
             return new Taxonomies_Provider();
         };
+
+        $this->project['p2p'] = function( $c ) {
+            return new P2P_Provider( $c );
+        };
     }
 
     private function enqueue_services() {
+        $this->project['service_loader']->enqueue( 'connections', 'init' );
         $this->project['service_loader']->enqueue( 'assets', 'init' );
         $this->project['service_loader']->enqueue( 'taxonomies', 'init' );
+        $this->project['service_loader']->enqueue( 'p2p', 'init' );
     }
 
     /**
