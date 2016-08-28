@@ -1,0 +1,38 @@
+.media-modal-content .media-frame select.attachment-filters {
+	max-width: -webkit-calc(19% - 12px);
+	max-width: calc(19% - 12px);
+}
+
+.compat-item {
+	overflow: visible !important;
+}
+
+.compat-item .compat-field-p2p-related-sections,
+.compat-item .compat-field-p2p-related-schools {
+	overflow: visible;
+}
+
+.compat-field-p2p-related-sections .field,
+.compat-field-p2p-related-schools .field {
+	width: 100%;
+	float: none;
+}
+
+.compat-field-p2p-related-sections .selectize-control.multi .selectize-input [data-value],
+.compat-field-p2p-related-schools .selectize-control.multi .selectize-input [data-value]{
+	background: #0085ba;
+	box-shadow: none;
+	border-color: #006799;
+}
+
+.conroe-media-multiselect.select2-dropdown--below {
+	margin-top: 31px;
+}
+
+.conroe-media-multiselect.select2-dropdown--below {
+	margin-bottom: 30px;
+}
+
+.edit-attachment-frame .attachment-info .settings .compat-field-p2p-related-schools {
+	padding-bottom: 200px;
+}

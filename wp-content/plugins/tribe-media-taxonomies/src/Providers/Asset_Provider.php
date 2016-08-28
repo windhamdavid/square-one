@@ -30,11 +30,11 @@ class Asset_Provider {
         $this->asset_loader->register_and_enqueue_stylesheet( 'media-taxonomies', 'css/media-taxonomies.css', array(), '1.0' );
 
         // P2P
-        $this->asset_loader->register_and_enqueue_script( 'selectize', 'vendor/selectize.js', [ 'jquery' ], '', false );
-        $this->asset_loader->register_and_enqueue_script( 'media-admin', 'admin/media-admin.js', [ 'jquery', 'media-views', 'selectize' ], '', true );
+        $this->asset_loader->register_and_enqueue_script( 'selectize', 'javascript/vendor/selectize.js', [ 'jquery' ], '', false );
+        $this->asset_loader->register_and_enqueue_script( 'media-admin', 'javascript/media-admin.js', [ 'jquery', 'media-views', 'selectize' ], '', true );
         $this->asset_loader->localize_script( 'media-admin', 'TribeMediaAdminFilterData', $this->get_p2p_data() );
-        $this->asset_loader->register_and_enqueue_stylesheet( 'selectize', 'vendor/selectize.default.css' );
-        $this->asset_loader->register_and_enqueue_stylesheet( 'media-admin', 'admin/media-admin.css' );
+        $this->asset_loader->register_and_enqueue_stylesheet( 'selectize', 'javascript/vendor/selectize.default.css' );
+        $this->asset_loader->register_and_enqueue_stylesheet( 'media-admin', 'css/media-admin.css' );
     }
 
     /**
@@ -123,10 +123,14 @@ class Asset_Provider {
 
     private function get_p2p_data() {
         $data = [
-            'p2p'      => [ ],
+            'p2p' => [ ],
         ];
         foreach ( $this->container['connections']->get_connection_types() as $p2p ) {
-            $data[ 'p2p' ][] = $this->get_relationship_data( $p2p[ 'relationship' ], $p2p[ 'post_type' ] );
+
+            foreach ( $p2p['post_types'] as $post_type ) {
+                $data['p2p'][] = $this->get_relationship_data( $p2p[ 'relationship_name' ], $post_type );
+            }
+
         }
         return $data;
     }
