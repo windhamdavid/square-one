@@ -1,4 +1,11 @@
 <?php
+/**
+ * The main plugin class. Initializes the other required classes.
+ *
+ * @package Tribe\Media
+ * @version 1.0
+ * @since 2.0
+ */
 
 namespace Tribe\Media;
 
@@ -10,12 +17,24 @@ use Tribe\Media\Providers\Taxonomies_Provider;
 use Tribe\Media\Providers\P2P_Provider;
 use Tribe\Media\Providers\Connections_Provider;
 
+/**
+ * Class Main
+ */
 class Main {
 
+    /**
+     * @var Main
+     */
     private static $_instance;
 
+    /**
+     * @var Container
+     */
     private $project;
 
+    /**
+     * Main constructor.
+     */
     public function __construct() {
         $this->project = new Container();
         $this->project['service_loader'] = function( $c ) {
@@ -23,12 +42,18 @@ class Main {
         };
     }
 
+    /**
+     * Initialize the providers.
+     */
     public function init() {
         $this->register_providers();
         $this->enqueue_services();
         $this->project['service_loader']->initialize_services();
     }
 
+    /**
+     * Register the various providers into the Container.
+     */
     private function register_providers() {
         $this->project['connections'] = function() {
             return new Connections_Provider();
@@ -51,6 +76,9 @@ class Main {
         };
     }
 
+    /**
+     * Enqueue any services from the Container providers.
+     */
     private function enqueue_services() {
         $this->project['service_loader']->enqueue( 'connections', 'init' );
         $this->project['service_loader']->enqueue( 'assets', 'init' );
@@ -59,6 +87,8 @@ class Main {
     }
 
     /**
+     * Get the class instance.
+     *
      * @return Main
      */
     public static function instance() {

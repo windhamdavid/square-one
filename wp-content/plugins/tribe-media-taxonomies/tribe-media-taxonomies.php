@@ -1,12 +1,12 @@
 <?php
-/*
-Plugin Name: Media Taxonomies
-Plugin URI: http://tri.be
-Description: Improve support for taxononmies for attachments
-Version: 1.0
-Author: Daniel Dvorkin (fork of Ralf Hortt)
-Author URI: http://tri.be
-*/
+/**
+ * Plugin Name: Media Taxonomies
+ * Plugin URI: http://tri.be
+ * Description: Improve support for taxononmies and relationships for attachments
+ * Version: 2.0
+ * Author: Daniel Dvorkin (fork of Ralf Hortt)
+ * Author URI: http://tri.be
+ */
 
 require_once trailingslashit( __DIR__ ) . 'src/Autoload.php';
 

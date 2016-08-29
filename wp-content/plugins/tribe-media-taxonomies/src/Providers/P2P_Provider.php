@@ -1,24 +1,52 @@
 <?php
+/**
+ * P2P Provider - provides functionality for adding Relationship information and filtering to attachments.
+ *
+ * @package Tribe\Media
+ * @version 1.0
+ * @since 2.0
+ */
 
 namespace Tribe\Media\Providers;
 
 use Pimple\Container;
 use Tribe\Media\Fields\P2P_Field;
 
+/**
+ * Class P2P_Provider
+ */
 class P2P_Provider {
 
+    /**
+     * @var Container
+     */
     private $container;
 
+    /**
+     * P2P_Provider constructor.
+     *
+     * @param Container $container
+     */
     public function __construct( Container $container ) {
         $this->container = $container;
     }
 
+    /**
+     * Initialize the hooks.
+     */
     public function init() {
         add_filter( 'attachment_fields_to_edit', [ $this, 'add_attachment_p2p_fields' ], 50, 2 );
         add_filter( 'attachment_fields_to_save', [ $this, 'handle_save_request' ], 4, 2 );
         add_action( 'ajax_query_attachments_args', [ $this, 'filter_attachment_ajax_query_args' ], 10, 1 );
     }
 
+    /**
+     * Add P2P fields to the edit attachment area.
+     *
+     * @param array $fields  - an array of Fields for the attachment.
+     * @param \WP_Post $post - the Post object.
+     * @return mixed
+     */
     public function add_attachment_p2p_fields( $fields, $post ) {
 
         $screen = get_current_screen();
@@ -58,6 +86,8 @@ class P2P_Provider {
     }
 
     /**
+     * Handle the save request for attachments.
+     *
      * @param array $post       An array of post data.
      * @param array $attachment An array of attachment metadata.
      * @return array
@@ -140,6 +170,12 @@ class P2P_Provider {
         }
     }
 
+    /**
+     * Add arguments for the attachments AJAX call.
+     *
+     * @param array $args - and array of arguments for this call.
+     * @return mixed
+     */
     public function filter_attachment_ajax_query_args( $args ) {
         foreach ( $this->container['connections']->get_connection_types() as $relationship ) {
 

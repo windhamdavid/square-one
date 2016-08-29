@@ -1,23 +1,52 @@
 <?php
+/**
+ * The Asset Provider. Deals with enqueueing and localizing the JS and CSS assets for the plugin.
+ *
+ * @package Tribe\Media
+ * @version 1.0
+ * @since 2.0
+ */
 
 namespace Tribe\Media\Providers;
 
 use Pimple\Container;
+use Tribe\Libs\Assets\Asset_Loader;
 
+/**
+ * Class Asset_Provider
+ */
 class Asset_Provider {
 
+    /**
+     * @var Asset_Loader
+     */
     private $asset_loader;
+
+    /**
+     * @var Container
+     */
     private $container;
 
+    /**
+     * Asset_Provider constructor.
+     *
+     * @param Container $container
+     */
     function __construct( Container $container ) {
         $this->container = $container;
         $this->asset_loader = $container['asset_loader'];
     }
 
+    /**
+     * Initialize the hooks.
+     */
     public function init() {
         add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_assets' ] );
     }
 
+    /**
+     * Enqueue the various assets.
+     */
     public function admin_enqueue_assets() {
 
         $tax_info = $this->gather_taxonomy_information();
@@ -32,10 +61,10 @@ class Asset_Provider {
         $this->asset_loader->register_and_enqueue_stylesheet( 'media-taxonomies', 'css/media-taxonomies.css', [], '1.0' );
 
         // P2P @sam I assume you'll be combining all of the scripts together; we can get rid of these next references once you do.
-//        $this->asset_loader->register_and_enqueue_script( 'selectize', 'javascript/vendor/selectize.js', [ 'jquery' ], '', false );
-//        $this->asset_loader->register_and_enqueue_script( 'media-admin', 'javascript/media-admin.js', [ 'jquery', 'media-views', 'selectize' ], '', true );
-//        $this->asset_loader->register_and_enqueue_stylesheet( 'selectize', 'javascript/vendor/selectize.default.css' );
-//        $this->asset_loader->register_and_enqueue_stylesheet( 'media-admin', 'css/media-admin.css' );
+        $this->asset_loader->register_and_enqueue_script( 'selectize', 'javascript/vendor/selectize.js', [ 'jquery' ], '', false );
+        $this->asset_loader->register_and_enqueue_script( 'media-admin', 'javascript/media-admin.js', [ 'jquery', 'media-views', 'selectize' ], '', true );
+        $this->asset_loader->register_and_enqueue_stylesheet( 'selectize', 'javascript/vendor/selectize.default.css' );
+        $this->asset_loader->register_and_enqueue_stylesheet( 'media-admin', 'css/media-admin.css' );
 
         // Add Tag
         $this->asset_loader->register_and_enqueue_script( 'media-uploader-edits-scripts', 'javascript/media-uploader-edits.js', [ 'jquery' ], false );
@@ -43,7 +72,6 @@ class Asset_Provider {
 
     /**
      * Language strings for js
-     *
      */
     private function taxonomy_js_l10n() {
 
@@ -125,6 +153,11 @@ class Asset_Provider {
         return $return;
     }
 
+    /**
+     * Get the relationship data from any registered P2P connections.
+     *
+     * @return array
+     */
     private function get_p2p_data() {
         $data = [
             'p2p' => [ ],
@@ -139,6 +172,14 @@ class Asset_Provider {
         return $data;
     }
 
+    /**
+     * Get the data for a specific relationship.
+     *
+     * @param string $relationship_id - the relationship name.
+     * @param string $post_type_id - the post type name.
+     *
+     * @return array
+     */
     private function get_relationship_data( $relationship_id, $post_type_id ) {
         $pto = get_post_type_object( $post_type_id );
         return [
@@ -150,6 +191,14 @@ class Asset_Provider {
         ];
     }
 
+    /**
+     * Get data about connected posts for a specific relationship.
+     *
+     * @param string $relationship - the relationship name.
+     * @param string $post_type - the post type name.
+     *
+     * @return array
+     */
     private function get_post_data( $relationship, $post_type ) {
         $groupby_filter = function( $group_by, $query ) {
             /** @var \wpdb $wpdb */
@@ -173,6 +222,11 @@ class Asset_Provider {
         return $posts;
     }
 
+    /**
+     * Add localization data for the 'add tag' functionality.
+     *
+     * @return array
+     */
     private function add_tag_data() {
         $js_config = [
             'config' => [

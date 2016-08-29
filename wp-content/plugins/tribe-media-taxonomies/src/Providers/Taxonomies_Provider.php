@@ -1,14 +1,27 @@
 <?php
+/**
+ * Taxonomies Provider - provides functionality for adding and filtering attachments by taxonomies.
+ *
+ * @package Tribe\Media
+ * @version 1.0
+ * @since 2.0
+ */
 
 namespace Tribe\Media\Providers;
 
 use Tribe\Media\Fields\Term_Checkbox;
 
+/**
+ * Class Taxonomies_Provider
+ */
 class Taxonomies_Provider {
 
+    /**
+     * Initialize the hooks.
+     */
     public function init() {
         add_filter( 'attachment_fields_to_edit', [ $this, 'attachment_fields_to_edit' ], 10, 2 );
-        add_action( 'pre_get_posts', [ $this, 'filter_attachments_by_taxonomy' ], 0, 1 );
+        add_action( 'ajax_query_attachments_args', [ $this, 'filter_attachments_by_taxonomy' ], 0, 1 );
         add_action( 'restrict_manage_posts', [ $this, 'add_tax_filters_to_listing' ] );
         add_action( 'wp_ajax_save-media-terms', [ $this, 'save_media_terms' ], 0,  1 );
         add_filter( 'attachment_fields_to_save', [ $this, 'patch_taxonomies_save_ajax_callback' ], 10, 2 );
@@ -16,6 +29,8 @@ class Taxonomies_Provider {
     }
 
     /**
+     * Add the taxonomy fields to the attachment edit screen in the uploader.
+     *
      * @param $fields
      * @param $post
      *
@@ -52,24 +67,20 @@ class Taxonomies_Provider {
     }
 
     /**
-     * @param $query
+     * Add taxonomy parameters to the attachment query.
+     *
+     *
+     * @param array $args - an array of arguments for this AJAX call.
+     *
+     * @return array
      */
-    public function filter_attachments_by_taxonomy( $query ) {
+    public function filter_attachments_by_taxonomy( $args ) {
 
         $posted_query = filter_input( INPUT_POST, 'query', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-
-        if ( ! is_admin() ) {
-            return;
-        }
-
-        if ( 'attachment' !== $query->query_vars['post_type'] ) {
-            return;
-        }
-
-        $taxonomies = apply_filters( 'media-taxonomies', get_object_taxonomies( 'attachment', 'objects' ) );
+        $taxonomies   = apply_filters( 'media-taxonomies', get_object_taxonomies( 'attachment', 'objects' ) );
 
         if ( empty( $taxonomies ) ) {
-            return;
+            return $args;
         }
 
         $tax_query = [];
@@ -110,7 +121,9 @@ class Taxonomies_Provider {
 
         endforeach;
 
-        $query->set( 'tax_query', $tax_query );
+        $args['tax_query'] = $tax_query;
+
+        return $args;
     }
 
     /**
@@ -148,7 +161,7 @@ class Taxonomies_Provider {
                 }
 
                 ob_start();
-                wp_dropdown_categories( array(
+                wp_dropdown_categories( [
                     'show_option_all' => sprintf( _x( 'View all %s', '%1$s = plural, %2$s = singular', 'media-taxonomies' ), $taxonomy->labels->name, $taxonomy->labels->singular_name ),
                     'taxonomy'        => $tax_name,
                     'name'            => $tax_name,
@@ -159,7 +172,7 @@ class Taxonomies_Provider {
                     'class'           => $class,
                     'id'              => 'taxonomy-' . $tax_name,
                     'value_field'     => 'slug',
-                ) );
+                ] );
                 $dropdown = ob_get_clean();
 
                 echo $dropdown;
@@ -169,6 +182,9 @@ class Taxonomies_Provider {
 
     }
 
+    /**
+     * Save the terms set on the edit media screen of the uploader.
+     */
     public function save_media_terms() {
 
         $post_id = (int) filter_input( INPUT_POST, 'attachment_id', FILTER_SANITIZE_NUMBER_INT );
@@ -217,7 +233,7 @@ class Taxonomies_Provider {
             return $post;
         }
 
-        $post_tags = array();
+        $post_tags = [];
         if ( isset( $_POST['tax_input']['post_tag'] ) && is_array( $_POST['tax_input']['post_tag'] ) ) {
             foreach( $_POST['tax_input']['post_tag'] as $tag_id ) {
                 $term = get_term( $tag_id, 'post_tag' );
@@ -233,8 +249,6 @@ class Taxonomies_Provider {
     /**
      * Add tags from the manager and return json for use in templating in the media manager or elsewhere
      *
-     *
-     * @access public
      * @return array
      */
     public function add_tag_from_manager() {
@@ -267,7 +281,7 @@ class Taxonomies_Provider {
 
             // we need to set this tag active on this attachment now
 
-            $terms   = wp_get_object_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+            $terms   = wp_get_object_terms( $post_id, $taxonomy, [ 'fields' => 'ids' ] );
             $terms[] = $term_id;
 
             wp_set_object_terms( $post_id, $terms, $taxonomy );
@@ -275,12 +289,12 @@ class Taxonomies_Provider {
             _update_post_term_count( $terms, get_taxonomy( $taxonomy ) );
         }
 
-        $response = array(
+        $response = [
             'success'  => $success,
             'message'  => $message,
             'tag_data' => $tag,
             'tags'     => isset( $terms ) ? $terms : 'No tags, something went wrong.'
-        );
+        ];
 
         header( 'Content-type: application/json' );
         echo json_encode( $response );

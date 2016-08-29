@@ -1,26 +1,65 @@
 <?php
+/**
+ * P2P Field - a Filter Field which provides relationship fields for attachments.
+ *
+ * @package Tribe\Media
+ * @version 1.0
+ * @since 2.0
+ */
 
 namespace Tribe\Media\Fields;
 
+/**
+ * Class P2P_Field
+ */
 class P2P_Field extends Filter_Field {
 
+    /**
+     * @var \WP_Post
+     */
     private $post;
+
+    /**
+     * @var string
+     */
     private $relationship;
+
+    /**
+     * @var string
+     */
     private $post_type;
+
+    /**
+     * @var array
+     */
     private $post_list;
 
+    /**
+     * @param \WP_Post $post
+     */
     public function set_post( $post ) {
         $this->post = $post;
     }
 
+    /**
+     * @param string $relationship
+     */
     public function set_relationship( $relationship ) {
         $this->relationship = $relationship;
     }
 
+    /**
+     * @param string $post_type
+     */
     public function set_post_type( $post_type ) {
         $this->post_type = $post_type;
     }
 
+    /**
+     * Get the HTML content for this field.
+     *
+     * @return string
+     */
     protected function get_field_html() {
         $post_list = $this->get_post_list( $this->post_type );
         $related = $this->get_related_posts( $this->post );
@@ -42,6 +81,13 @@ class P2P_Field extends Filter_Field {
         return $html;
     }
 
+    /**
+     * Retrieve all posts for a given type.
+     *
+     * @param string $post_type
+     *
+     * @return mixed
+     */
     private function get_post_list( $post_type ) {
         $key = json_encode( $post_type );
 
@@ -57,6 +103,13 @@ class P2P_Field extends Filter_Field {
         return $this->post_list[ $key ];
     }
 
+    /**
+     * Get related posts for a given post.
+     *
+     * @param \WP_Post $post
+     *
+     * @return array
+     */
     private function get_related_posts( $post ) {
         /** @var \wpdb $wpdb */
         global $wpdb;
