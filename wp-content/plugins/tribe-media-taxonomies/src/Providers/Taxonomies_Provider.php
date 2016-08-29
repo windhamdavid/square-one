@@ -12,6 +12,7 @@ class Taxonomies_Provider {
         add_action( 'restrict_manage_posts', [ $this, 'add_tax_filters_to_listing' ] );
         add_action( 'wp_ajax_save-media-terms', [ $this, 'save_media_terms' ], 0,  1 );
         add_filter( 'attachment_fields_to_save', [ $this, 'patch_taxonomies_save_ajax_callback' ], 10, 2 );
+        add_action( 'wp_ajax_media-add-tag', [ $this, 'add_tag_from_manager' ], 0,  1 );
     }
 
     /**
@@ -228,4 +229,62 @@ class Taxonomies_Provider {
 
         return $post;
     }
+
+    /**
+     * Add tags from the manager and return json for use in templating in the media manager or elsewhere
+     *
+     *
+     * @access public
+     * @return array
+     */
+    public function add_tag_from_manager() {
+
+        check_ajax_referer( 'media-add-tag', '_wpnonce_media-add-tag' );
+
+        $post_id  = (int) $_POST['post_id'];
+        $taxonomy = ! empty( $_POST['taxonomy'] ) ? $_POST['taxonomy'] : 'post_tag';
+        $tax      = get_taxonomy( $taxonomy );
+
+        if ( $tax === false || ! current_user_can( $tax->cap->edit_terms ) ) {
+            wp_die( - 1 );
+        }
+
+        $tag     = wp_insert_term( $_POST['tag-name'], $taxonomy );
+        $term_id = $tag['term_id'];
+
+        if ( ! $tag || is_wp_error( $tag ) || ( ! $tag = get_term( $tag['term_id'], $taxonomy ) ) ) {
+            $success = false;
+            $message = __( 'An unknown error has occurred.' );
+            if ( is_wp_error( $tag ) && $tag->get_error_message() ) {
+                $message = $tag->get_error_message();
+            }
+        } else {
+            $success = true;
+            $message = 'Tag successfully added';
+        }
+
+        if ( $success ) {
+
+            // we need to set this tag active on this attachment now
+
+            $terms   = wp_get_object_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+            $terms[] = $term_id;
+
+            wp_set_object_terms( $post_id, $terms, $taxonomy );
+
+            _update_post_term_count( $terms, get_taxonomy( $taxonomy ) );
+        }
+
+        $response = array(
+            'success'  => $success,
+            'message'  => $message,
+            'tag_data' => $tag,
+            'tags'     => isset( $terms ) ? $terms : 'No tags, something went wrong.'
+        );
+
+        header( 'Content-type: application/json' );
+        echo json_encode( $response );
+        die();
+    }
+
 }
