@@ -89,9 +89,12 @@ class Taxonomies_Provider {
 
             $term = null;
 
-            if ( isset( $posted_query[ $tax_name ] ) ) {
-                $term = $posted_query[ $tax_name ]['term_slug'];
+
+            if ( ! array_key_exists( $tax_name, $posted_query ) || empty( $posted_query[ $tax_name ] ) ) {
+                continue;
             }
+
+            $term = $posted_query[ $tax_name ]['term_slug'];
 
             $posted_term_id = filter_input( INPUT_POST, $tax_name, FILTER_SANITIZE_NUMBER_INT );
 

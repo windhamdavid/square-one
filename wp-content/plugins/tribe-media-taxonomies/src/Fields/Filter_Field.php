@@ -24,7 +24,7 @@ abstract class Filter_Field {
      *
      * @param string $label
      */
-    function __construct( string $label ) {
+    function __construct( $label ) {
         $this->label = $label;
     }
 
