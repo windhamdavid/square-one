@@ -10,7 +10,7 @@
 
 require_once trailingslashit( __DIR__ ) . 'src/Autoload.php';
 
-define( 'Tribe_Media_Path', __DIR__ );
+define( 'Tribe_Media_Path', __DIR__ . '/assets' );
 
 add_action( 'plugins_loaded', function () {
 	tribe_media_taxonomies()->init();
