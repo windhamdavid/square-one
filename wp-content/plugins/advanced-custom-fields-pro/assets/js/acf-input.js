@@ -987,6 +987,179 @@ var acf;
 			
 		},
 		
+		/*
+		*  disable_form
+		*
+		*  This function will disable all inputs within an element
+		*
+		*  @type	function
+		*  @date	22/09/2016
+		*  @since	5.4.0
+		*
+		*  @param	$el (jQuery)
+		*  @return	na
+		*/
+		
+		disable_form: function( $el, context ) {
+			
+			// defaults
+			context = context || '';
+			
+			
+			// loop
+			$el.find('select, textarea, input').each(function(){
+				
+				acf.disable( $(this), context );
+				
+			});
+			
+		},
+		
+		
+		/*
+		*  disable
+		*
+		*  This function will disable an input
+		*
+		*  @type	function
+		*  @date	22/09/2016
+		*  @since	5.4.0
+		*
+		*  @param	$el (jQuery)
+		*  @return	n/a
+		*/
+		
+		disable: function( $input, context ){
+			
+			// defaults
+			context = context || '';
+			
+			
+			// bail early if is .acf-disabled
+			if( $input.hasClass('acf-disabled') ) return false;
+			
+			
+			// context
+			if( context ) {
+				
+				// vars
+				var attr = $input.attr('data-disabled'),
+					disabled = attr ? attr.split(',') : [],
+					i = disabled.indexOf(context);
+					
+				
+				// bail early if already disabled
+				if( i >= 0 ) return false;
+				
+				
+				// append context
+				disabled.push( context );
+				
+				
+				// join
+				attr = disabled.join(',');
+				
+				
+				// update context
+				$input.attr('data-disabled', attr);
+				
+			}
+			
+			
+			// disable input
+			$input.prop('disabled', true);
+			
+		},
+		
+		
+		/*
+		*  enable_form
+		*
+		*  This function will enable all inputs within an element
+		*
+		*  @type	function
+		*  @date	22/09/2016
+		*  @since	5.4.0
+		*
+		*  @param	$el (jQuery)
+		*  @return	na
+		*/
+		
+		enable_form: function( $el, context ) {
+			
+			// defaults
+			context = context || '';
+			
+			
+			// loop
+			$el.find('select, textarea, input').each(function(){
+				
+				acf.enable( $(this), context );
+				
+			});
+			
+		},
+		
+		
+		/*
+		*  enable
+		*
+		*  This function will enable an input
+		*
+		*  @type	function
+		*  @date	22/09/2016
+		*  @since	5.4.0
+		*
+		*  @param	$el (jQuery)
+		*  @return	n/a
+		*/
+		
+		enable: function( $input, context ){
+			
+			// defaults
+			context = context || '';
+			
+			
+			// bail early if is .acf-disabled
+			if( $input.hasClass('acf-disabled') ) return false;
+			
+			
+			// context
+			if( context ) {
+				
+				// vars
+				var attr = $input.attr('data-disabled'),
+					disabled = attr ? attr.split(',') : [],
+					i = disabled.indexOf(context);
+				
+				
+				// bail early if no content or context does not match
+				if( i < 0 ) return false;
+				
+				
+				// delete
+				disabled.splice(i, 1);
+				
+				
+				// update attr
+				attr = disabled.join(',');
+				
+				
+				// update context
+				$input.attr('data-disabled', attr);
+				
+				
+				// bail early if other disableds exist
+				if( attr ) return false;
+				
+			}
+			
+			
+			// enable input
+			$input.prop('disabled', false);
+			
+		},
+		
 		
 		/*
 		*  remove_tr
@@ -1808,22 +1981,44 @@ var acf;
 		*  @return	$el2 (jQuery)
 		*/
 		
-		duplicate: function( $el, attr ){
+		duplicate: function( args ){
 			
 			//console.time('duplicate');
 			
 			
+			// backwards compatibility
+			// - array of settings added in v5.4.6
+			if( typeof args.length !== 'undefined' ) args = { $el: args };
+			
+			
 			// defaults
-			attr = attr || 'data-id';
+			args = acf.parse_args(args, {
+				$el: false,
+				search: '',
+				replace: '',
+				before: function( $el ){},
+				after: function( $el, $el2 ){},
+				append: function( $el, $el2 ){ $el.after( $el2 ); }
+			});
 			
 			
 			// vars
-			find = $el.attr(attr);
-			replace = acf.get_uniqid();
+			var $el = args.$el,
+				$el2;
 			
 			
-			// allow acf to modify DOM
-			// fixes bug where select field option is not selected
+			// search
+			if( !args.search ) args.search = $el.attr('data-id');
+			
+			
+			// replace
+			if( !args.replace ) args.replace = acf.get_uniqid();
+			
+			
+			// before
+			// - allow acf to modify DOM
+			// - fixes bug where select field option is not selected
+			args.before.apply( this, [$el] );
 			acf.do_action('before_duplicate', $el);
 			
 			
@@ -1840,32 +2035,32 @@ var acf;
 			
 			
 			// find / replace
-			if( typeof find !== 'undefined' ) {
+			if( args.search ) {
 				
-				// replcae data attribute
-				$el2.attr(attr, replace);
+				// replace data
+				$el2.attr('data-id', args.replace);
 				
 				
 				// replace ids
-				$el2.find('[id*="' + find + '"]').each(function(){	
+				$el2.find('[id*="' + args.search + '"]').each(function(){	
 				
-					$(this).attr('id', $(this).attr('id').replace(find, replace) );
+					$(this).attr('id', $(this).attr('id').replace(args.search, args.replace) );
 					
 				});
 				
 				
 				// replace names
-				$el2.find('[name*="' + find + '"]').each(function(){	
+				$el2.find('[name*="' + args.search + '"]').each(function(){	
 				
-					$(this).attr('name', $(this).attr('name').replace(find, replace) );
+					$(this).attr('name', $(this).attr('name').replace(args.search, args.replace) );
 					
 				});
 				
 				
 				// replace label for
-				$el2.find('label[for*="' + find + '"]').each(function(){
+				$el2.find('label[for*="' + args.search + '"]').each(function(){
 				
-					$(this).attr('for', $(this).attr('for').replace(find, replace) );
+					$(this).attr('for', $(this).attr('for').replace(args.search, args.replace) );
 					
 				});
 				
@@ -1876,12 +2071,14 @@ var acf;
 			$el2.find('.ui-sortable').removeClass('ui-sortable');
 			
 			
-			// allow acf to modify DOM
+			// after
+			// - allow acf to modify DOM
 			acf.do_action('after_duplicate', $el, $el2 );
+			args.after.apply( this, [$el, $el2] );
 			
 			
 			// append
-			$el.after( $el2 );
+			args.append.apply( this, [$el, $el2] );
 			
 			
 			// add JS functionality
@@ -1903,7 +2100,7 @@ var acf;
 		
 		decode: function( string ){
 			
-			return $('<div/>').html( string ).text();
+			return $('<textarea/>').html( string ).text();
 			
 		},
 		
@@ -1925,6 +2122,63 @@ var acf;
 		parse_args: function( args, defaults ) {
 			
 			return $.extend({}, defaults, args);
+			
+		},
+		
+		
+		/*
+		*  enqueue_script
+		*
+		*  This function will append a script to the page
+		*
+		*  @source	https://www.nczonline.net/blog/2009/06/23/loading-javascript-without-blocking/
+		*  @type	function
+		*  @date	27/08/2016
+		*  @since	5.4.0
+		*
+		*  @param	url (string)
+		*  @param	callback (function)
+		*  @return	na
+		*/
+		
+		enqueue_script: function( url, callback ) {
+			
+			// vars
+		    var script = document.createElement('script');
+		    
+		    
+		    // atts
+		    script.type = "text/javascript";
+			script.src = url;
+		    script.async = true;
+			
+			
+			// ie
+		    if( script.readyState ) {
+			    
+		        script.onreadystatechange = function(){
+			        
+		            if( script.readyState == 'loaded' || script.readyState == 'complete' ){
+			            
+		                script.onreadystatechange = null;
+		                callback();
+		                
+		            }
+		            
+		        };
+		    
+		    // normal browsers
+		    } else {
+			    
+		        script.onload = function(){
+		            callback();
+		        };
+		        
+		    }
+		    
+		    
+		    // append
+		    document.body.appendChild(script);
 			
 		}
 		
@@ -2467,10 +2721,18 @@ var acf;
 		
 		refresh: function( $el ){
 			
-			//console.time('acf.width.render');
+			//console.log('acf.layout.refresh', $el);
 			
 			// defaults
 			$el = $el || false;
+			
+			
+			// if is '.acf-fields'
+			if( $el && $el.is('.acf-fields') ) {
+				
+				$el = $el.parent();
+				
+			}
 			
 			
 			// loop over visible fields
@@ -3030,10 +3292,10 @@ var acf;
 	
 	acf.ajax = acf.model.extend({
 		
+		active: false,
 		actions: {
 			'ready': 'ready'
 		},
-		
 		events: {
 			'change #page_template':								'_change_template',
 			'change #parent_id':									'_change_parent',
@@ -3042,7 +3304,6 @@ var acf;
 			'change .acf-taxonomy-field[data-save="1"] input':		'_change_term',
 			'change .acf-taxonomy-field[data-save="1"] select':		'_change_term'
 		},
-		
 		o: {
 			//'post_id':		0,
 			//'page_template':	0,
@@ -3052,7 +3313,6 @@ var acf;
 			//'post_taxonomy':	0,
 		},
 		xhr: null,
-		//timeout: null,
 		
 		update: function( k, v ){
 			
@@ -3073,9 +3333,14 @@ var acf;
 			// update post_id
 			this.update('post_id', acf.get('post_id'));
 			
+			
+			// active
+			this.active = true;
+			
 		},
 		
 /*
+		timeout: null,
 		maybe_fetch: function(){
 			
 			// reference
@@ -3101,6 +3366,10 @@ var acf;
 */
 		
 		fetch: function(){
+			
+			// bail early if not active
+			if( !this.active ) return;
+			
 			
 			// bail early if no ajax
 			if( !acf.get('ajax') ) return;
@@ -3835,6 +4104,11 @@ var acf;
 			
 			// remove class
 			$field.removeClass( 'hidden-by-conditional-logic' );
+			
+			
+			// clean up incorrectly hidden inputs
+			// case: Select2 is added after conditioan logic hides the select input.
+			$field.find('.acf-clhi.acf-disabled').removeClass('acf-clhi');
 			
 			
 			// remove "disabled"
@@ -4856,10 +5130,7 @@ var acf;
 	acf.fields.google_map = acf.field.extend({
 		
 		type: 'google_map',
-		api: {
-			sensor:		false,
-			libraries:	'places'
-		},
+		url: '',
 		$el: null,
 		$search: null,
 		
@@ -4929,84 +5200,74 @@ var acf;
 			
 			
 			// ready
-			if( this.status == 'ready' ) {
+			if( this.status == 'ready' ) return true;
+			
+			
+			// loading
+			if( this.status == 'loading' ) return false;
+			
+			
+			// check exists (optimal)
+			if( acf.isset(window, 'google', 'maps', 'places') ) {
 				
+				this.status = 'ready';
 				return true;
 				
 			}
 			
 			
-			// loading
-			if( this.status == 'loading' ) {
+			// check exists (ok)
+			if( acf.isset(window, 'google', 'maps') ) {
 				
-				return false;
+				this.status = 'ready';
 				
 			}
 			
 			
-			// no google
-			if( !acf.isset(window, 'google', 'load') ) {
+			// attempt load google.maps.places
+			if( this.url ) {
 				
 				// set status
-				self.status = 'loading';
+				this.status = 'loading';
 				
 				
-				// load API
-				$.getScript('https://www.google.com/jsapi', function(){
+				// enqueue
+				acf.enqueue_script(this.url, function(){
 					
-					// load maps
-				    google.load('maps', '3', { other_params: $.param(self.api), callback: function(){
-				    	
-				    	// set status
-				    	self.status = 'ready';
-				    	
-				    	
-				    	// initialize pending
-				    	self.initialize_pending();
-				        
-				    }});
-				    
-				});
-				
-				return false;
-					
-			}
-			
-			
-			// no maps or places
-			if( !acf.isset(window, 'google', 'maps', 'places') ) {
-				
-				// set status
-				self.status = 'loading';
-				
-				
-				// load maps
-			    google.load('maps', '3', { other_params: $.param(self.api), callback: function(){
-			    	
-			    	// set status
+					// set status
 			    	self.status = 'ready';
 			    	
 			    	
 			    	// initialize pending
 			    	self.initialize_pending();
 			    	
-			    	
-			        
-			    }});
+				});
 				
-				return false;
-					
 			}
 			
 			
-			// google must exist already
-			this.status = 'ready';
+			// ready
+			if( this.status == 'ready' ) return true;
 			
 			
 			// return
-			return true;
+			return false;
 			
 		},
+		
+		
+		/*
+		*  initialize_pending
+		*
+		*  This function will initialize pending fields
+		*
+		*  @type	function
+		*  @date	27/08/2016
+		*  @since	5.4.0
+		*
+		*  @param	n/a
+		*  @return	n/a
+		*/
 		
 		initialize_pending: function(){
 			
@@ -5015,7 +5276,7 @@ var acf;
 			
 			this.$pending.each(function(){
 				
-				self.doFocus( $(this) ).initialize();
+				self.set('$field', $(this)).initialize();
 				
 			});
 			
@@ -5084,10 +5345,34 @@ var acf;
         	this.map = new google.maps.Map( this.$el.find('.canvas')[0], map_args);
 	        
 	        
-	        // add search
-			var autocomplete = new google.maps.places.Autocomplete( this.$search[0] );
-			autocomplete.bindTo('bounds', this.map);
-			this.map.autocomplete = autocomplete;
+	        // search
+	        if( acf.isset(window, 'google', 'maps', 'places', 'Autocomplete') ) {
+		        
+		        // vars
+		        var autocomplete = new google.maps.places.Autocomplete( this.$search[0] );
+				
+				
+				// bind
+				autocomplete.bindTo('bounds', this.map);
+				
+				
+				// event
+				google.maps.event.addListener(autocomplete, 'place_changed', function( e ) {
+				    
+				    // vars
+				    var place = this.getPlace();
+				    
+				    
+				    // search
+					self.search( place );
+				    
+				});
+				
+				
+				// append
+				this.map.autocomplete = autocomplete;
+				
+	        }
 			
 			
 			// marker
@@ -5121,18 +5406,6 @@ var acf;
 		    
 		    
 			// events
-			google.maps.event.addListener(autocomplete, 'place_changed', function( e ) {
-			    
-			    // vars
-			    var place = this.getPlace();
-			    
-			    
-			    // search
-				self.search( place );
-			    
-			});
-		    
-		    
 		    google.maps.event.addListener( this.map.marker, 'dragend', function(){
 		    	
 		    	// vars
@@ -7345,6 +7618,11 @@ var acf;
 		
 		$ul: null,
 		
+		actions: {
+			'ready':	'initialize',
+			'append':	'initialize'
+		},
+		
 		events: {
 			'click input[type="radio"]': 'click',
 		},
@@ -7357,6 +7635,30 @@ var acf;
 			
 			// get options
 			this.o = acf.get_data( this.$ul );
+			
+		},
+		
+		
+		/*
+		*  initialize
+		*
+		*  This function will fix a bug found in Chrome.
+		*  A radio input (for a given name) may only have 1 selected value. When used within a fc layout 
+		*  multiple times (clone field), the selected value (default value) will not be checked. 
+		*  This simply re-checks it.
+		*
+		*  @type	function
+		*  @date	30/08/2016
+		*  @since	5.4.0
+		*
+		*  @param	$post_id (int)
+		*  @return	$post_id (int)
+		*/
+		
+		initialize: function(){
+			
+			// find selected input and check it
+			this.$ul.find('.selected input').prop('checked', true);	
 			
 		},
 		
@@ -7433,8 +7735,7 @@ var acf;
 		
 		actions: {
 			'ready':	'initialize',
-			'append':	'initialize',
-			//'show':		'show'
+			'append':	'initialize'
 		},
 		
 		events: {
@@ -10405,6 +10706,10 @@ var acf;
 			var self = this;
 			
 			
+			// action for 3rd party
+			acf.do_action('validation_begin');
+				
+				
 			// vars
 			var data = acf.serialize_form($form);
 				
@@ -10474,11 +10779,9 @@ var acf;
 			
 			
 			// bail early if validationw as not valid
-			if( !this.valid ) {
-				
-				return;
-				
-			}
+			if( !this.valid ) return;
+			
+			
 			
 			
 			// update ignore (allow form submit to not run validation)
@@ -10556,10 +10859,18 @@ var acf;
 				this.valid = true;
 				
 				
+				// action for 3rd party
+				acf.do_action('validation_success');
+			
+				
 				// end function
 				return;
 				
 			}
+			
+			
+			// action for 3rd party
+			acf.do_action('validation_failure');
 			
 			
 			// set valid (prevents fetch_complete from runing)
@@ -10976,12 +11287,8 @@ var acf;
 		
 		initialize: function(){
 			
-			// bail early if no tinymce
-			if( typeof tinyMCEPreInit === 'undefined' || typeof tinymce === 'undefined' ) {
-				
-				return false;
-				
-			}
+			// bail early if no tinyMCEPreInit (needed by both tinymce and quicktags)
+			if( typeof tinyMCEPreInit === 'undefined' ) return;
 			
 			
 			// generate new id
@@ -11002,29 +11309,54 @@ var acf;
 			this.o.id = new_id
 			
 			
-			// vars
-			var mceInit = this.get_mceInit(),
-				qtInit = this.get_qtInit();
+			// initialize
+			this.initialize_tinymce();
+			this.initialize_quicktags();
 			
-				
-			// append settings
+		},
+		
+		initialize_tinymce: function(){
+			
+			// bail early if no tinymce
+			if( typeof tinymce === 'undefined' ) return;
+			
+			
+			// vars
+			var mceInit = this.get_mceInit();
+			
+			
+			// append
 			tinyMCEPreInit.mceInit[ mceInit.id ] = mceInit;
+			
+			
+			// bail early if not visual active
+			if( !this.$el.hasClass('tmce-active') ) return;
+			
+			
+			// initialize
+			try {
+				
+				tinymce.init( mceInit );
+				
+			} catch(e){}
+			
+		},
+		
+		initialize_quicktags: function(){
+			
+			// bail early if no quicktags
+			if( typeof quicktags === 'undefined' ) return;
+			
+			
+			// vars
+			var qtInit = this.get_qtInit();
+			
+			
+			// append
 			tinyMCEPreInit.qtInit[ qtInit.id ] = qtInit;
 			
 			
-			// initialize mceInit
-			if( this.$el.hasClass('tmce-active') ) {
-				
-				try {
-					
-					tinymce.init( mceInit );
-					
-				} catch(e){}
-				
-			}
-			
-
-			// initialize qtInit
+			// initialize
 			try {
 			
 				var qtag = quicktags( qtInit );
@@ -11307,18 +11639,70 @@ ed.on('ResizeEditor', function(e) {
 		
 	});
 	
-
-	$(document).ready(function(){
+	
+	/*
+	*  wysiwyg_manager
+	*
+	*  This model will handle validation of fields within a tab group
+	*
+	*  @type	function
+	*  @date	25/11/2015
+	*  @since	5.3.2
+	*
+	*  @param	$post_id (int)
+	*  @return	$post_id (int)
+	*/
+	
+	var acf_content = acf.model.extend({
 		
-		// move acf_content wysiwyg
-		if( $('#wp-acf_content-wrap').exists() ) {
+		$div: null,
+		
+		actions: {
+			'ready': 'ready'
+		},
+		
+		ready: function(){
 			
-			$('#wp-acf_content-wrap').parent().appendTo('body');
+			// vars
+			this.$div = $('#acf-hidden-wp-editor');
+			
+			
+			// bail early if doesn't exist
+			if( !this.$div.exists() ) return;
+			
+			
+			// move to footer
+			this.$div.appendTo('body');
+			
+			
+			// bail early if no tinymce
+			if( typeof tinymce === 'undefined' ) return;
+			
+			
+			// restore default activeEditor
+			tinymce.on('AddEditor', function( data ){
+				
+				// vars
+				var editor = data.editor;
+				
+				
+				// update WP var to match tinymce
+				wpActiveEditor = editor.id;
+				
+				
+				// bail early if not acf_content
+				if( editor.id !== 'acf_content' ) return;
+				
+				
+				// update global vars
+				tinymce.activeEditor = tinymce.editors.content || null;
+				wpActiveEditor = tinymce.editors.content ? 'content' : null;
+				
+			});
 			
 		}
 		
 	});
-
 
 })(jQuery);
 

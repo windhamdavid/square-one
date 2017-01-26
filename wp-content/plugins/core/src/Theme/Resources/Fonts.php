@@ -13,7 +13,7 @@ class Fonts {
 
 	public function hook() {
 		add_action( 'wp_head', [ $this, 'load_fonts' ], 0, 0 );
-		add_action( 'login_head', [ $this, 'load_fonts' ], 0, 0 );
+		//add_action( 'login_head', [ $this, 'load_fonts' ], 0, 0 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Fonts {
 			var WebFontConfig = {
 				<?php if ( !empty( $this->fonts[ 'typekit' ] ) ) { ?>
 				typekit: {
-					id: '<?php echo $this->$this->fonts[ 'typekit' ]; ?>'
+					id: '<?php echo $this->fonts[ 'typekit' ]; ?>'
 				},
 				<?php } ?>
 				<?php if ( !empty( $this->fonts[ 'google' ] ) ) { ?>
