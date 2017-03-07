@@ -5,22 +5,28 @@ namespace Tribe\Project\Theme;
 
 
 class Image_Sizes {
-	const CORE_FULL             = 'core-full';
-	const CORE_MOBILE           = 'core-mobile';
-	const SOCIAL_SHARE          = 'social-share';
+	const CORE_THUMBNAIL = 'core-thumbnail';
+	const CORE_FULL      = 'core-full';
+	const CORE_MOBILE    = 'core-mobile';
+	const SOCIAL_SHARE   = 'social-share';
 
 	private $sizes = [
-		self::CORE_FULL    => [
+		self::CORE_THUMBNAIL => [
+			'width'  => 320,
+			'height' => 200,
+			'crop'   => true,
+		],
+		self::CORE_FULL      => [
 			'width'  => 1600,
 			'height' => 0,
 			'crop'   => true,
 		],
-		self::CORE_MOBILE  => [
+		self::CORE_MOBILE    => [
 			'width'  => 1152,
 			'height' => 0,
 			'crop'   => true,
 		],
-		self::SOCIAL_SHARE => [
+		self::SOCIAL_SHARE   => [
 			'width'  => 1200,
 			'height' => 630,
 			'crop'   => true,

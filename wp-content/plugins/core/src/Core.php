@@ -10,6 +10,7 @@ use Tribe\Project\Service_Providers\Panel_Intializer_Provider;
 use Tribe\Project\Service_Providers\Theme_Customizer_Provider;
 use Tribe\Project\Service_Providers\Global_Service_Provider;
 use Tribe\Project\Service_Providers\Theme_Provider;
+use Tribe\Project\Service_Providers\Shortcode_Provider;
 use Tribe\Project\Service_Providers\Settings_Provider;
 use Tribe\Project\Service_Providers\Util_Provider;
 
@@ -47,6 +48,7 @@ class Core {
 	private function load_service_providers() {
 		$this->container->register( new Asset_Provider() );
 		$this->container->register( new Cache_Provider() );
+		$this->container->register( new Shortcode_Provider() );
 		$this->container->register( new Theme_Provider() );
 		$this->container->register( new Theme_Customizer_Provider() );
 		$this->container->register( new Panel_Intializer_Provider() );
