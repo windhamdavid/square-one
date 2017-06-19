@@ -6,5 +6,20 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'xrstf\\Composer52' => array($vendorDir . '/xrstf/composer-php52/lib'),
+    'tad_' => array($vendorDir . '/lucatume/args/src'),
+    'tad\\FunctionMocker' => array($vendorDir . '/lucatume/function-mocker/src'),
+    'cli' => array($vendorDir . '/wp-cli/php-cli-tools/lib'),
+    'WP_CLI' => array($vendorDir . '/wp-cli/wp-cli/php'),
+    'Requests' => array($vendorDir . '/rmccue/requests/library'),
+    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
+    'Oxymel' => array($vendorDir . '/nb/oxymel'),
+    'Mustache' => array($vendorDir . '/mustache/mustache/src'),
+    'Hautelook' => array($vendorDir . '/hautelook/phpass/src'),
+    'Handlebars' => array($vendorDir . '/xamin/handlebars.php/src'),
+    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
+    'Behat\\Gherkin' => array($vendorDir . '/behat/gherkin/src'),
+    'BaconStringUtils' => array($vendorDir . '/bacon/bacon-string-utils/src'),
+    'Arg' => array($vendorDir . '/lucatume/args/src'),
 );
