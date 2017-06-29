@@ -4,10 +4,9 @@ namespace Tribe\Project;
 
 use Pimple\Container;
 use Tribe\Libs\Functions\Function_Includer;
-use Tribe\Project\Logger\Error_Log;
 use Tribe\Project\Service_Providers\Asset_Provider;
 use Tribe\Project\Service_Providers\Cache_Provider;
-use Tribe\Project\Service_Providers\Error_Log_Service_Provider;
+use Tribe\Project\Service_Providers\Logger\Logger_Service_Provider;
 use Tribe\Project\Service_Providers\Panel_Intializer_Provider;
 use Tribe\Project\Service_Providers\Post_Types\Event_Service_Provider;
 use Tribe\Project\Service_Providers\Post_Types\Organizer_Service_Provider;
@@ -39,7 +38,6 @@ class Core {
 	}
 
 	public function init() {
-		$this->load_loggers();
 		$this->load_libraries();
 		$this->load_functions();
 		$this->load_service_providers();
@@ -64,6 +62,7 @@ class Core {
 		$this->container->register( new Global_Service_Provider() );
 		$this->container->register( new Settings_Provider() );
 		$this->container->register( new Util_Provider() );
+		$this->container->register( new Logger_Service_Provider() );
 
 		$this->load_post_type_providers();
 		$this->load_taxonomy_providers();
@@ -86,10 +85,6 @@ class Core {
 		// externally registered taxonomies
 		$this->container->register( new Category_Service_Provider() );
 		$this->container->register( new Post_Tag_Service_Provider() );
-	}
-
-	public function load_loggers() {
-		$this->container->register( new Error_Log_Service_Provider() );
 	}
 
 	public function container() {

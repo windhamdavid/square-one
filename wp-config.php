@@ -70,7 +70,7 @@ $config_defaults = array(
 
 	// Debug
 	'WP_DEBUG'                => true,
-	'WP_DEBUG_LOG'            => true,
+	'WP_DEBUG_LOG'            => false,
 	'WP_DEBUG_DISPLAY'        => true,
 	'SAVEQUERIES'             => true,
 	'SCRIPT_DEBUG'            => true,
@@ -91,14 +91,15 @@ $config_defaults = array(
 // ==============================================================
 
 if ( defined( 'ENVIRONMENT' ) && ENVIRONMENT == 'PRODUCTION' ) {
-	$config_defaults['WP_CACHE']            = true;
-	$config_defaults['WP_DEBUG']            = false;
-	$config_defaults['WP_DEBUG_LOG']        = false;
-	$config_defaults['WP_DEBUG_DISPLAY']    = false;
-	$config_defaults['SAVEQUERIES']         = false;
-	$config_defaults['CONCATENATE_SCRIPTS'] = true;
-	$config_defaults['COMPRESS_SCRIPTS']    = true;
-	$config_defaults['COMPRESS_CSS']        = true;
+	$config_defaults['WP_CACHE']                    = true;
+	$config_defaults['WP_DEBUG']                    = false;
+	$config_defaults['WP_DEBUG_LOG']                = false;
+	$config_defaults['WP_DEBUG_DISPLAY']            = false;
+	$config_defaults['SAVEQUERIES']                 = false;
+	$config_defaults['CONCATENATE_SCRIPTS']         = true;
+	$config_defaults['COMPRESS_SCRIPTS']            = true;
+	$config_defaults['COMPRESS_CSS']                = true;
+	$config_defaults['TRIBE_LOG_FIREPHP_ENABLED']   = false;
 }
 
 // ==============================================================
