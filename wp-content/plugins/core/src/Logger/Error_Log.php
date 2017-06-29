@@ -13,13 +13,6 @@ class Error_Log extends Base_Logger {
 	const ERROR_LOG_NAME = '/debug.log';
 
 	public function register_logger() {
-		//if( defined( 'WP_DEBUG' ) && false !== WP_DEBUG ) {
-		//	return false;
-		//}
-		//if( defined( 'WP_DEBUG_LOG' ) && false != WP_DEBUG_LOG ) {
-		//	return false;
-		//}
-
 		$debug_level = Logger::DEBUG;
 
 		if( defined( 'ENVIRONMENT' ) && 'PRODUCTION' === ENVIRONMENT ) {
