@@ -2,5 +2,6 @@
 namespace Tribe\Project\Logger;
 
 interface TribeLogInstance {
-	public function register_logger();
+	public function get_label();
+	public function register_logger( $debug_level );
 }

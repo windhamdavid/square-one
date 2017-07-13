@@ -3,7 +3,17 @@ namespace Tribe\Project\Logger;
 
 class Base_Logger implements TribeLogInstance {
 
-	function register_logger() {}
+	/**
+	 * Return a translatable string for the settings page in the child class
+	 */
+	function get_label() {}
+
+	/**
+	 * Every connector must register itself
+	 *
+	 * @param $debug_level
+	 */
+	function register_logger( $debug_level ) {}
 
 	/**
 	 * @param string $error_level
