@@ -23,13 +23,20 @@ class Logger_Settings extends Contracts\ACF_Settings {
 
 	public function get_fields() {
 		acf_add_local_field_group( $this->get_settings_group() );
+
+		$connections = $this->get_available_connectors();
+		if( ! empty( $connections ) ) {
+			foreach( $connections as $connection ) {
+				acf_add_local_field_group( $connection->get_acf_settings_group() );
+			}
+		}
 	}
 
 	private function get_settings_group() {
 		$key = self::NAME;
 		$group = new Group( $key );
 		$group->set_attributes( [
-			'title'      => __( 'Logger Settings', 'tribe' ),
+			'title'      => __( 'Available Loggers', 'tribe' ),
 			'location'   => [
 				[
 					[
@@ -57,7 +64,8 @@ class Logger_Settings extends Contracts\ACF_Settings {
 			'name'          => self::AVAILABLE_LOGGERS,
 			'type'          => 'checkbox',
 			'choices'       => $choices,
-			'instructions'  => __( 'Check all Loggers you wish to activate', 'tribe' )
+			'instructions'  => __( 'Check all Loggers you wish to activate', 'tribe' ),
+			'toggle'        => true
 		] );
 
 		$group->add_field( $field );
