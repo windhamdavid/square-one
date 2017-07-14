@@ -83,4 +83,11 @@ class Logger_Settings extends Contracts\ACF_Settings {
 		 */
 		return apply_filters( 'tribe_logger_connections', [] );
 	}
+
+	/**
+	 * @return Logger_Settings
+	 */
+	public static function instance() {
+		return tribe_project()->container()['settings.logger-settings'];
+	}
 }

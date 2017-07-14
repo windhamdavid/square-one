@@ -1,11 +1,13 @@
 <?php
 namespace Tribe\Project\Logger;
 
+use Illuminate\Support\Facades\Log;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Logger;
 use Tribe\Libs\ACF\Field;
 use Tribe\Libs\ACF\Group;
+use Tribe\Project\Settings\Logger_Settings;
 
 class Error_Log extends Base_Logger {
 
@@ -19,18 +21,10 @@ class Error_Log extends Base_Logger {
 	/**
 	 * Registers a handler to log to error_log. This is irrelevant to whether `WP_DEBUG` constants are set as we won't always
 	 * be checking for errors.
-	 *
-	 * @param bool $debug_level
-	 */
-	public function register_logger( $debug_level = false ) {
+	 **/
+	public function register_logger() {
 
-		if( empty( $debug_level ) ) {
-			if( defined( 'ENVIRONMENT' ) && 'PRODUCTION' === ENVIRONMENT ) {
-				$debug_level = Logger::CRITICAL;
-			} else {
-				$debug_level = Logger::DEBUG;
-			}
-		}
+		$debug_level = Logger_Settings::instance()->get_setting( self::PHP_ERROR_LEVEL );
 
 		$logger = new Logger( self::ERROR_LOG_LOCATION . self::ERROR_LOG_NAME );
 		$logger->pushHandler( new ErrorLogHandler( ErrorLogHandler::OPERATING_SYSTEM, $debug_level ) );

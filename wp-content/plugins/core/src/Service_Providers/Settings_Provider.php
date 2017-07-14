@@ -18,7 +18,7 @@ class Settings_Provider implements ServiceProviderInterface {
 		$container[ 'settings.general' ] = function ( Container $container ) {
 			return new Settings\General();
 		};
-		$container[ 'settings.logger-admin'] = function( Container $container ) {
+		$container[ 'settings.logger-settings'] = function( Container $container ) {
 			return new Settings\Logger_Settings();
 		};
 
@@ -27,7 +27,7 @@ class Settings_Provider implements ServiceProviderInterface {
 		}, 0, 0 );
 
 		add_action( 'init', function() use ( $container ) {
-			$container[ 'settings.logger-admin']->hook();
+			$container[ 'settings.logger-settings']->hook();
 		}, 0, 0  );
 	}
 }
