@@ -85,4 +85,8 @@ class Error_Log extends Base_Logger {
 			]
 		];
 	}
+
+	function log( string $error_level, string $message, array $context = [] ) {
+		$this->log( $error_level, $message, $context );
+	}
 }
