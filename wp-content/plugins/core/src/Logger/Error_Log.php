@@ -1,7 +1,6 @@
 <?php
 namespace Tribe\Project\Logger;
 
-use Illuminate\Support\Facades\Log;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Logger;
@@ -37,10 +36,11 @@ class Error_Log extends Base_Logger {
 	public function get_acf_settings_group( Group $group ) {
 		$field = new Field( self::LOG_ERRORS );
 		$field->set_attributes( [
-			'label'         => $this->get_label(),
-			'name'          => self::LOG_ERRORS,
-			'type'          => 'true_false',
-			'instructions'  => __( 'Select true to log errors to the error log. You can manually log any other activities as well.', 'tribe' ),
+			'label'             => $this->get_label(),
+			'name'              => self::LOG_ERRORS,
+			'type'              => 'true_false',
+			'instructions'      => __( 'Select true to log errors to the error log. You can manually log any other activities as well.', 'tribe' ),
+			'conditional_logic' => $this->get_conditional_logic()
 		] );
 		$group->add_field( $field );
 
@@ -62,7 +62,8 @@ class Error_Log extends Base_Logger {
 			'default_value' => [
 				0   => Logger::ERROR
 			],
-			'instructions' => __( 'Be careful with this setting in production', 'tribe' )
+			'instructions' => __( 'Be careful with this setting in production', 'tribe' ),
+			'conditional_logic' => $this->get_conditional_logic()
 		] );
 		$group->add_field( $field );
 
@@ -71,5 +72,17 @@ class Error_Log extends Base_Logger {
 
 	public function get_label() {
 		return __( 'Error Log', 'tribe' );
+	}
+
+	public function get_conditional_logic() {
+		return [
+			[
+				[
+					'field'     => Logger_Settings::AVAILABLE_LOGGERS,
+					'operator'  => '==',
+					'value'     => self::NAME
+				]
+			]
+		];
 	}
 }

@@ -41,6 +41,8 @@ class Logger_Settings extends Contracts\ACF_Settings {
 			],
 		] );
 
+		$fields = [];
+
 		$connections = $this->get_available_connectors();
 		if( empty( $connections ) ) {
 			return [];
@@ -60,7 +62,6 @@ class Logger_Settings extends Contracts\ACF_Settings {
 			'instructions'  => __( 'Check all Loggers you wish to activate', 'tribe' ),
 			'toggle'        => true
 		] );
-
 		$group->add_field( $field );
 
 		/**
