@@ -40,8 +40,7 @@ class Error_Log extends Base_Logger {
 		}
 	}
 
-	public function get_acf_settings_group() {
-		$group = new Group( self::NAME );
+	public function get_acf_settings_group( Group $group ) {
 		$field = new Field( self::LOG_ERRORS );
 		$field->set_attributes( [
 			'label'         => $this->get_label(),

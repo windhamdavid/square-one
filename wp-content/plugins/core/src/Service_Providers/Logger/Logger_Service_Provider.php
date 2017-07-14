@@ -3,6 +3,7 @@ namespace Tribe\Project\Service_Providers\Logger;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Tribe\Libs\ACF\Group;
 use Tribe\Project\Logger\Admin;
 use Tribe\Project\Logger\Error_Log;
 
@@ -21,6 +22,10 @@ class Logger_Service_Provider implements ServiceProviderInterface {
 			$loggers[ 'error_log' ] = $container['logger.error-log' ];
 
 			return $loggers;
+		} );
+
+		add_action( 'tribe_add_loggers', function( Group $group ) use ( $container ) {
+			$container[ 'logger.error-log' ]->get_acf_settings_group( $group );
 		} );
 	}
 }

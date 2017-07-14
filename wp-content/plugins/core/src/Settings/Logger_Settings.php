@@ -23,13 +23,6 @@ class Logger_Settings extends Contracts\ACF_Settings {
 
 	public function get_fields() {
 		acf_add_local_field_group( $this->get_settings_group() );
-
-		$connections = $this->get_available_connectors();
-		if( ! empty( $connections ) ) {
-			foreach( $connections as $connection ) {
-				acf_add_local_field_group( $connection->get_acf_settings_group() );
-			}
-		}
 	}
 
 	private function get_settings_group() {
@@ -70,10 +63,24 @@ class Logger_Settings extends Contracts\ACF_Settings {
 
 		$group->add_field( $field );
 
+		/**
+		 * Use this hook to add new ACF fields needed for your custom logger. The callback that provides
+		 * this should be in your Logger class and hooked into `tribe_add_loggers` from the service provider.
+		 */
+		do_action_ref_array( 'tribe_add_loggers', [ &$group ] );
+
 		return $group->get_attributes();
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_available_connectors() {
+		/**
+		 * Use this filter to register your custom Logger. This should be done in the Service Provider where your
+		 * logger will add an array member with the name of the logger as the key and the container for the logger
+		 * as the value.
+		 */
 		return apply_filters( 'tribe_logger_connections', [] );
 	}
 }
