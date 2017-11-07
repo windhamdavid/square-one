@@ -13,7 +13,7 @@ use Tribe\Project\Templates\Components\Text;
 class Text_Component extends Base {
 
 	const COMPONENT = 'text';
-	const WRITEUP   = 'writeup.md';
+	const WRITEUP   = 'writup.md';
 	const OPTIONS   = 'options.md';
 	const EXAMPLES  = 'example.md';
 
@@ -21,6 +21,7 @@ class Text_Component extends Base {
 	 * Array of component options.
 	 *
 	 * @var $options array
+	 * TODO: @aaron We could probably come up with a more efficient way to set static data for these components. What escapes me is how to handle images. Another /site dir for static images?
 	 */
 	public $options = [
 		Text::ATTRS   => [
@@ -58,6 +59,12 @@ class Text_Component extends Base {
 		return $text_object->render();
 	}
 
+	/**
+	 * Iterate over your MD files and output them as an array onto the $data['parsedown'] object.
+	 * These will be available via {{ parsedown.KEY }} in the twig template.
+	 *
+	 * @return array
+	 */
 	protected function get_component_text_markdown() {
 		$markdown = new \Tribe_Parsedown();
 

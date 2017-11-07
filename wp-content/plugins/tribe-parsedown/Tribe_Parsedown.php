@@ -5,8 +5,18 @@
  */
 class Tribe_Parsedown {
 
+	/**
+	 * Used to ensure this class is available in our environment.
+	 *
+	 * @var $instance
+	 */
 	private static $instance;
 
+	/**
+	 * Represents the instantiation of the Parsedown class to be used in factory.
+	 *
+	 * @var Parsedown
+	 */
 	public $component_doc;
 
 	const DOCS_ROOT = '/docs/theme/components';
@@ -20,11 +30,11 @@ class Tribe_Parsedown {
 	}
 
 	/**
-	 * Get the root docs directory of the repo.
+	 * Get the root /docs directory of the repo.
 	 *
 	 * @return string
 	 */
-	protected function get_docs_dir() {
+	protected function get_docs_dir() : string {
 		return trailingslashit( dirname( __FILE__, 4 ) . self::DOCS_ROOT );
 	}
 
@@ -35,7 +45,7 @@ class Tribe_Parsedown {
 	 *
 	 * @return string
 	 */
-	protected function get_components_docs_dir( $name ) {
+	protected function get_components_docs_dir( $name ) : string {
 		return trailingslashit( $this->get_docs_dir() . $name );
 	}
 
@@ -47,9 +57,20 @@ class Tribe_Parsedown {
 	 *
 	 * @return string
 	 */
-	public function factory( $component_name, $component_md ) {
+	public function factory( $component_name, $component_md ) : string {
+		if ( ! $component_md && $component_name ) {
+			return false;
+		}
+
 		$component_doc = $this->get_components_docs_dir( $component_name ) . $component_md;
-		$contents      = file_get_contents( $component_doc );
+		$file          = file_exists( $component_doc );
+
+		if ( ! $file ) {
+			return sprintf( "Uh oh, Spaghetti-o's. Your <code>%s</code> document wasn't found in the <code>/%s</code> directory. 👀", $component_md, $component_name );
+		}
+
+		// TODO: @aaron should we do this as URI instead of server /dir path?
+		$contents = file_get_contents( $component_doc );
 
 		return $this->component_doc->text( $contents );
 	}
