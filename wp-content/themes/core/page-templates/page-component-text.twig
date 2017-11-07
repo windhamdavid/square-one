@@ -1,0 +1,32 @@
+{# Page Template: Component Docs #}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+    <div class="l-container c-wrapper">
+        <div class="c-markdown">
+            {{ parsedown.writeup }}
+        </div>
+
+        <div class="c-markdown">
+            {{ parsedown.example }}
+        </div>
+
+        <h2>{{ lang['Rendered Component'] }}</h2>
+        <div class="c-rendered">
+            {{ component_rendered }}
+        </div>
+
+        <h2>{{ lang['Rendered HTML'] }}</h2>
+        <pre class="c-rendered--html">
+            {{ component_rendered|esc_html }}
+        </pre>
+
+        <div class="c-markdown">
+            {{ parsedown.options }}
+        </div>
+
+    </div>
+
+{% endblock %}
