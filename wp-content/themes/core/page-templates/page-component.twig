@@ -5,12 +5,14 @@
 {% block content %}
 
     <div class="l-container c-wrapper">
-        <div class="c-markdown">
-            {{ parsedown.writeup }}
+        <div class="c-markdownc-markdown--writeup">
+            {{ parsedown_writeup }}
         </div>
 
-        <div class="c-markdown">
-            {{ parsedown.example }}
+        <div class="c-markdown c-markdown--examples">
+            {% for example in parsedown_examples %}
+                {{ example }}
+            {% endfor %}
         </div>
 
         <h2>{{ lang['Rendered Component'] }}</h2>
@@ -23,8 +25,8 @@
             {{ component_rendered|esc_html }}
         </pre>
 
-        <div class="c-markdown">
-            {{ parsedown.options }}
+        <div class="c-markdown c-markdown--options">
+            {{ parsedown_options }}
         </div>
 
     </div>

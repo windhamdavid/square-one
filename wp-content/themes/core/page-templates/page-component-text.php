@@ -4,5 +4,5 @@
  */
 
 
-$template = new \Tribe\Project\Templates\Site\Text_Component( 'page-templates/page-component-text.twig' );
+$template = new \Tribe\Project\Templates\Site\Text_Component( 'page-templates/page-component.twig' );
 echo $template->render();

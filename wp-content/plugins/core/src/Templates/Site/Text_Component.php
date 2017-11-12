@@ -12,18 +12,12 @@ use Tribe\Project\Templates\Components\Text;
  */
 class Text_Component extends Base {
 
-	const COMPONENT = 'text';
-	const WRITEUP   = 'writup.md';
-	const OPTIONS   = 'options.md';
-	const EXAMPLES  = 'example.md';
-
-	/**
-	 * Array of component options.
-	 *
-	 * @var $options array
-	 * TODO: @aaron We could probably come up with a more efficient way to set static data for these components. What escapes me is how to handle images. Another /site dir for static images?
-	 */
-	public $options = [
+	const COMPONENT_NAME = 'text';
+	const WRITEUP_MD     = 'writeup.md';
+	const OPTIONS_MD     = 'options.md';
+	const EXAMPLES_MD    = 'example.md';
+	const OPTIONS        = [
+		// TODO: @aaron We could probably come up with a more efficient way to set static data for these components. What escapes me is how to handle images. Another /site dir for static images?
 		Text::ATTRS   => [
 			'data-js' => 'text-component',
 		],
@@ -42,7 +36,9 @@ class Text_Component extends Base {
 	public function get_data(): array {
 		$data                       = parent::get_data();
 		$data['component_rendered'] = $this->get_component_text();
-		$data['parsedown']          = $this->get_component_text_markdown();
+		$data['parsedown_writeup']  = $this->get_writeup_markdown();
+		$data['parsedown_examples'] = $this->get_examples_markdown();
+		$data['parsedown_options']  = $this->get_options_markdown();
 
 		return $data;
 	}
@@ -54,24 +50,43 @@ class Text_Component extends Base {
 	 */
 	protected function get_component_text(): string {
 
-		$text_object = Text::factory( $this->options );
+		$text_object = Text::factory( self::OPTIONS );
 
 		return $text_object->render();
 	}
 
 	/**
-	 * Iterate over your MD files and output them as an array onto the $data['parsedown'] object.
-	 * These will be available via {{ parsedown.KEY }} in the twig template.
+	 * Return the writeup markdown for this component.
+	 *
+	 * @return string
+	 */
+	protected function get_writeup_markdown(): string {
+		$container = tribe_project()->container();
+
+		return $container['tribe_parsedown']->render( self::COMPONENT_NAME, self::WRITEUP_MD );
+	}
+
+	/**
+	 * Get the examples as a block of items to be out put in succession.
 	 *
 	 * @return array
 	 */
-	protected function get_component_text_markdown() {
-		$markdown = new \Tribe_Parsedown();
+	protected function get_examples_markdown(): array {
+		$container = tribe_project()->container();
 
 		return [
-			'example' => $markdown->factory( self::COMPONENT, self::EXAMPLES ),
-			'writeup' => $markdown->factory( self::COMPONENT, self::WRITEUP ),
-			'options' => $markdown->factory( self::COMPONENT, self::OPTIONS ),
+			$container['tribe_parsedown']->render( self::COMPONENT_NAME, self::EXAMPLES_MD ),
 		];
+	}
+
+	/**
+	 * Return the options markdown for this component.
+	 *
+	 * @return string
+	 */
+	protected function get_options_markdown(): string {
+		$container = tribe_project()->container();
+
+		return $container['tribe_parsedown']->render( self::COMPONENT_NAME, self::OPTIONS_MD );
 	}
 }

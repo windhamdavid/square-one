@@ -27,6 +27,7 @@ use Tribe\Project\Service_Providers\Theme_Provider;
 use Tribe\Project\Service_Providers\Settings_Provider;
 use Tribe\Project\Service_Providers\Twig_Service_Provider;
 use Tribe\Project\Service_Providers\Util_Provider;
+use Tribe\Project\Service_Providers\Parsedown_Provider;
 
 class Core {
 
@@ -72,6 +73,7 @@ class Core {
 		$this->container->register( new Shortcode_Provider() );
 		$this->container->register( new Object_Meta_Provider() );
 		$this->container->register( new CLI_Provider() );
+		$this->container->register( new Parsedown_Provider() );
 
 		$this->load_post_type_providers();
 		$this->load_taxonomy_providers();
