@@ -49,6 +49,10 @@ class CPT_Generator extends Command {
 		];
 	}
 
+	protected function when() {
+		return 'before_wp_load';
+	}
+
 	public function run_command( $args, $assoc_args ) {
 		// Validate the slug.
 		$this->slug       = $this->sanitize_slug( $args );

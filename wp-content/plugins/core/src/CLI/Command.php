@@ -13,6 +13,7 @@ abstract class Command extends \WP_CLI_Command {
 		WP_CLI::add_command( 's1 ' . $this->command(), [ $this, 'run_command' ], [
 			'shortdesc' => $this->description(),
 			'synopsis'  => $this->arguments(),
+			'when'      => $this->when(),
 		] );
 	}
 
@@ -20,6 +21,10 @@ abstract class Command extends \WP_CLI_Command {
 	abstract protected function description();
 	abstract protected function arguments();
 	abstract protected function run_command( $args, $assoc_args );
+
+	protected function when() {
+		return 'after_wp_load';
+	}
 
 	/**
 	 * converts a multi-word lowercase _ separated slug in
