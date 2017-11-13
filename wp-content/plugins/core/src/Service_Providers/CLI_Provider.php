@@ -5,6 +5,7 @@ namespace Tribe\Project\Service_Providers;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Tribe\Project\CLI\CLI_Generator;
+use Tribe\Project\CLI\Docker;
 use Tribe\Project\CLI\CPT_Generator;
 use Tribe\Project\CLI\Pimple_Dump;
 use Tribe\Project\CLI\Taxonomy_Generator;
@@ -28,11 +29,16 @@ class CLI_Provider implements ServiceProviderInterface {
 			return new CLI_Generator();
 		};
 
+		$container['cli.docker'] = function ( $container ) {
+			return new Docker();
+		};
+
 		add_action( 'init', function () use ( $container ) {
 			$container['cli.pimple_dump']->register();
 			$container['cli.cpt-generator']->register();
 			$container['cli.taxonomy-generator']->register();
 			$container['cli.cli-generator']->register();
+			$container['cli.docker']->register();
 		}, 0, 0 );
 	}
 }
