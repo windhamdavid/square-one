@@ -83,6 +83,8 @@ class File_System {
 			$this->config_file = $site_root . 'local-config.php';
 		}
 
+		return $this->config_file;
+
 	}
 
 }
