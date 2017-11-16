@@ -8,7 +8,6 @@ class Pimple_DumpTest extends \Codeception\TestCase\WPTestCase
     {
         // before
         parent::setUp();
-
         // your set up methods here
     }
 

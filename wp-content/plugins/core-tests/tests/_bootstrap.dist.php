@@ -4,3 +4,4 @@
 //use tad\FunctionMocker\FunctionMocker;
 
 //FunctionMocker::init();
+WPCLI::class;

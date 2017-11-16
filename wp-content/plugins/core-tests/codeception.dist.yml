@@ -62,6 +62,9 @@ modules:
             adminUsername: admin
             adminPassword: password
             adminUrl: /wp-admin
+        WPCLI:
+            path: /application/www/wp
+            throw: true
 extensions:
     commands:
         - Codeception\Command\GenerateWPUnit
