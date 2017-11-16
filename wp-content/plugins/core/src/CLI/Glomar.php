@@ -4,6 +4,8 @@ namespace Tribe\Project\CLI;
 
 class Glomar extends Command {
 
+	private $config_file = '';
+
 	public function description() {
 		return __( 'Manage glomar.', 'tribe' );
 	}
@@ -30,9 +32,22 @@ class Glomar extends Command {
 	}
 
 	public function run_command( $args, $assoc_args ) {
+		$this->config_file = $this->file_system->get_config_file();
 
+		if ( $assoc_args['start'] ) {
+			$this->update_config_file( true );
+		}
 
-		$this->file_system->get_config_file();
+		if ( $assoc_args['stop'] ) {
+			$this->update_config_file( false );
+		}
+
+		\WP_CLI::line( 'I can neither confirm nor deny that this command has been run' );
+	}
+
+	protected function update_config_file( $status ) {
+		$glomar_flag = sprintf( 'define( \'TRIBE_GLOMAR\', %s );', $status );
+		$this->file_system->insert_into_existing_file( $this->config_file, $glomar_flag, 'TRIBE_GLOMAR', true );
 	}
 
 }
