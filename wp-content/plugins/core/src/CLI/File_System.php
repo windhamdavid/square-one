@@ -4,6 +4,8 @@ namespace Tribe\Project\CLI;
 
 class File_System {
 
+	private $config_file = '';
+
 	public function create_directory( $directory ) {
 		clearstatcache();
 		if ( file_exists( $directory ) ) {
@@ -49,6 +51,29 @@ class File_System {
 
 	public function get_file( $path ) {
 		return file_get_contents( $path );
+	}
+
+	public function get_site_root_path() {
+		for ( $i = 1; ; $i ++ ) {
+			if ( file_exists( dirname( __DIR__, $i ) . '/wp-config.php' ) ) {
+				return trailingslashit( dirname( __DIR__, $i ) );
+			}
+		}
+	}
+
+	public function get_config_file() {
+		if ( ! empty( $this->config_file ) ) {
+			return $this->config_file;
+		}
+
+		$site_root = $this->get_site_root_path();
+
+		$this->config_file = $site_root . 'wp-config.php';
+
+		if ( file_exists( $site_root . 'local-config.php' ) ) {
+			$this->config_file = $site_root . 'local-config.php';
+		}
+
 	}
 
 }
