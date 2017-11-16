@@ -28,18 +28,27 @@ class File_System {
 		return $handle;
 	}
 
-	public function insert_into_existing_file( $file, $new_line, $below_line ) {
+	public function insert_into_existing_file( $file, $new_line, $below_line, $replace = false ) {
 		if ( ! $handle = fopen( $file, 'r+' ) ) {
 			\WP_CLI::error( 'Sorry.. ' . $file . ' could not be opened.' );
 		}
 
 		$contents = '';
 		while (! feof ( $handle ) ) {
+			$match = false;
 			$line = fgets( $handle );
-			$contents .= $line;
 			if ( strpos( $line, $below_line ) !== false ) {
+				$match = true;
+			}
+			
+			if ( ! $match || ( $match && ! $replace ) ) {
+				$contents .= $line;
+			}
+
+			if ( $match ) {
 				$contents .= $new_line;
 			}
+
 		}
 
 		if ( ! fclose( $handle ) ) {
