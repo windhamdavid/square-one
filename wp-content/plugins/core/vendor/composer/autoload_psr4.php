@@ -11,5 +11,6 @@ return array(
     'Tribe\\Libs\\' => array($vendorDir . '/moderntribe/tribe-libs/src'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'Predis\\' => array($vendorDir . '/predis/predis/src'),
     'JBZoo\\PimpleDumper\\' => array($vendorDir . '/jbzoo/pimpledumper/src'),
 );
