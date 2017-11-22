@@ -15,8 +15,17 @@ class Redis implements Backend {
 		return self::class;
 	}
 
-	public function enqueue( string $queue_name, Message $m ) {
-		// TODO: Implement enqueue() method.
+	public function enqueue( string $queue_name, Message $message ) {
+		$this->redis->zadd( $queue_name, $this->prepare_data( $message ) );
+	}
+
+	private function prepare_data( $message ) {
+		return [
+			$message->get_priority() => json_encode( [
+				'task_handler' => $message->get_task_handler(),
+				'args'         => $message->get_args(),
+			] ),
+		];
 	}
 
 	public function dequeue( string $queue_name ) {
@@ -32,6 +41,6 @@ class Redis implements Backend {
 	}
 
 	public function count( string $queue_name ): int {
-		// TODO: Implement count() method.
+		return $this->redis->llen( $queue_name );
 	}
 }
