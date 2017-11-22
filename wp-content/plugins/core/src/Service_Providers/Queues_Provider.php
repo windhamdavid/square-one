@@ -7,12 +7,16 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Tribe\Project\Queues\Backends\Mysql;
 use Tribe\Project\Queues\Backends\WP_Cache;
+use Tribe\Project\Queues\Backends\Redis;
 use Tribe\Project\Queues\DefaultQueue;
-use Tribe\Project\Queues\TestingQueue;
 
 class Queues_Provider implements ServiceProviderInterface {
 
 	public function register( Container $container ) {
+
+		$container['queues.backend.redis'] = function() use ( $container ) {
+			return new Redis( $container['cache.provider.redis'] );
+		};
 
 		$container['queues.backend.wp_cache'] = function(){
 			return new WP_Cache();
@@ -23,7 +27,7 @@ class Queues_Provider implements ServiceProviderInterface {
 		};
 
 		$container['queues.DefaultQueue'] = function ( $container ) {
-			$backend = $container['queues.backend.mysql'];
+			$backend = $container['queues.backend.redis'];
 			return new DefaultQueue( $backend );
 		};
 
