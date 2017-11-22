@@ -6,6 +6,7 @@ namespace Tribe\Project\Service_Providers;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Predis\Client;
 use Tribe\Libs\Cache\Cache;
 use Tribe\Libs\Cache\Purger;
 use Tribe\Project\Cache\Listener;
@@ -16,6 +17,11 @@ class Cache_Provider implements ServiceProviderInterface {
 
 		$container[ 'cache' ] = function ( $container ) {
 			return new Cache();
+		};
+
+		$container['cache.provider.redis'] = function() {
+			$connection = defined( 'REDIS_CONNECTION') ? REDIS_CONNECTION : 'tcp://127.0.0.1:6379';
+			return new Client( $connection );
 		};
 
 		$container[ 'cache.listener' ] = function ( $container ) {
