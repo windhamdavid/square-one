@@ -20,7 +20,11 @@ class Cache_Provider implements ServiceProviderInterface {
 		};
 
 		$container['cache.provider.redis'] = function() {
-			$connection = defined( 'REDIS_CONNECTION') ? REDIS_CONNECTION : 'tcp://127.0.0.1:6379';
+			$connection = defined( 'REDIS_CONNECTION') ? REDIS_CONNECTION : [
+				'scheme' => 'tcp',
+				'host'   => 'redis',
+				'port'   => 6379,
+			];
 			return new Client( $connection );
 		};
 

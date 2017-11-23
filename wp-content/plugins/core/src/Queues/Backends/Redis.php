@@ -16,31 +16,52 @@ class Redis implements Backend {
 	}
 
 	public function enqueue( string $queue_name, Message $message ) {
-		$this->redis->zadd( $queue_name, $this->prepare_data( $message ) );
+		$this->redis->zadd( $queue_name, $message->get_priority(), $this->prepare_data( $message ) );
 	}
 
 	private function prepare_data( $message ) {
-		return [
-			$message->get_priority() => json_encode( [
+		return json_encode( [
 				'task_handler' => $message->get_task_handler(),
 				'args'         => $message->get_args(),
-			] ),
-		];
+			] );
 	}
 
 	public function dequeue( string $queue_name ) {
-		// TODO: Implement dequeue() method.
+		// Get the item.
+		$list_item = array_flip( $this->redis->zrange( $queue_name, 0, 0, 'WITHSCORES' ) );
+		$priority = key( $list_item );
+
+		// Remove it from the sorted set.
+		$this->redis->zrem( $queue_name, $list_item[ $priority ] );
+		$task = json_decode( $list_item[ $priority ], true );
+		$id = uniqid( $task['task_handler'], false );
+
+		// Add it as a standard redis object until we hear back.
+		$this->redis->set( $id, json_encode( $list_item ) );
+
+		return new Message( $task['task_handler'], $task['args'], $priority, $id );
 	}
 
 	public function ack( string $job_id, string $queue_name ) {
-		// TODO: Implement ack() method.
+		$this->redis->del( [ $job_id ] );
 	}
 
 	public function nack( string $job_id, string $queue_name ) {
-		// TODO: Implement nack() method.
+		$job = json_decode( $this->redis->get( $job_id ), true );
+		$priority = key( $job );
+
+		$this->redis->zadd( $queue_name, $priority, $job[$priority] );
+		$this->ack( $job_id, 'null' );
+	}
+
+	public function cleanup() {
+		$keys = $this->redis->scan( 0 );
+		foreach ( $keys[1] as $job_id ) {
+			$this->nack( $job_id, 'null' );
+		}
 	}
 
 	public function count( string $queue_name ): int {
-		return $this->redis->llen( $queue_name );
+		return $this->redis->zcount( $queue_name, PHP_INT_MIN, PHP_INT_MAX );
 	}
 }
