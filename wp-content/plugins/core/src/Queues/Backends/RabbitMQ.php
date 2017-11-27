@@ -2,15 +2,16 @@
 
 namespace Tribe\Project\Queues\Backends;
 
+use PhpAmqpLib\Message\AMQPMessage;
 use Tribe\Project\Queues\Contracts\Backend;
 use Tribe\Project\Queues\Message;
 
 class RabbitMQ implements Backend {
 
-	protected $connection = null;
+	protected $channel = null;
 
 	public function __construct( \PhpAmqpLib\Channel\AMQPChannel $connection ) {
-		$this->connection = $connection;
+		$this->channel = $connection;
 	}
 
 	public function get_type(): string {
@@ -34,8 +35,7 @@ class RabbitMQ implements Backend {
 	}
 
 	public function count( string $queue_name ): int {
-		// 
-		$this->connection->queue_declare( $queue_name, false, true, false, false );
-		
+		$this->channel->queue_declare( $queue_name, false, true, false, false );
+		return count( $this->channel->callbacks );
 	}
 }
