@@ -20,19 +20,22 @@ class RabbitMQ implements Backend {
 
 	public function enqueue( string $queue_name, Message $message ) {
 		$rabbit_message = $this->add_to_queue( $message );
+		$this->channel->queue_declare( $queue_name, false, true, false, false );
 		$this->channel->basic_publish( $rabbit_message, '', $queue_name );
 	}
 
-	private function add_to_queue( $queue_name, $message ) {
+	private function add_to_queue( $message ) {
 		$data = [
 			'task_handler' => $message->get_task_handler(),
 			'args'         => $message->get_args(),
 		];
 
+		$message_priority = $message->get_priority() < 255 ? $message->get_priority() : 255;
+
 		return new AMQPMessage( json_encode( $data ),
 			[
 				'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
-				'priority'      => $message->get_priority(),
+				'priority'      => $message_priority,
 			]
 		);
 	}
@@ -50,7 +53,7 @@ class RabbitMQ implements Backend {
 	}
 
 	public function count( string $queue_name ): int {
-		$this->channel->queue_declare( $queue_name, false, true, false, false );
-		return count( $this->channel->callbacks );
+		$queue = $this->channel->queue_declare( $queue_name, true, true, false, false );
+		return $queue[1];
 	}
 }
