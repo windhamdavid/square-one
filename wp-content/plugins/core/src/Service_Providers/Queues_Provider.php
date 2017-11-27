@@ -20,7 +20,14 @@ class Queues_Provider implements ServiceProviderInterface {
 			$port   = defined( 'RABBIT_MQ_PORT' ) ? RABBIT_MQ_PORT : '127.0.0.1';
 			$user   = defined( 'RABBIT_MQ_USER' ) ? RABBIT_MQ_USER : '127.0.0.1';
 			$pass   = defined( 'RABBIT_MQ_PASS' ) ? RABBIT_MQ_PASS : '127.0.0.1';
-			return new AMQPStreamConnection( $server, $port, $user, $pass );
+			$connection = new AMQPStreamConnection( $server, $port, $user, $pass );
+
+			// Only add the shutdown function if we actually use RabbitMQ.
+			add_action( 'shutdown', function() use ( $connection ) {
+				$connection->close();
+			} );
+
+			return $connection->channel();
 		};
 
 		$container['queues.backend.wp_cache'] = function(){
@@ -32,11 +39,6 @@ class Queues_Provider implements ServiceProviderInterface {
 		};
 
 		$container['queues.backend.rabbit'] = function() use ( $container ) {
-			// Only add the shutdown function if we actually use RabbitMQ.
-			add_action( 'shutdown', function() use ( $container ) {
-				$container['queues.backend.rabbit']->close();
-			} );
-
 			return new RabbitMQ( $container['queues.backend.rabbitmq.client'] );
 		};
 
