@@ -37,7 +37,7 @@ class Queues_Provider implements ServiceProviderInterface {
 		};
 
 		$container['queues.DefaultQueue'] = function ( $container ) {
-			$backend = $container['queues.backend.redis'];
+			$backend = $container['queues.backend.mysql'];
 			return new DefaultQueue( $backend );
 		};
 
