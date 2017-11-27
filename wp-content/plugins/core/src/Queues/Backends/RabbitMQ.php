@@ -9,10 +9,8 @@ class RabbitMQ implements Backend {
 
 	protected $connection = null;
 
-	public function __construct( AMQPChannel $connection ) {
+	public function __construct( \PhpAmqpLib\Channel\AMQPChannel $connection ) {
 		$this->connection = $connection;
-		print_r( $connection );
-		print_r( gettype( $connection ) );die;
 	}
 
 	public function get_type(): string {
@@ -36,6 +34,8 @@ class RabbitMQ implements Backend {
 	}
 
 	public function count( string $queue_name ): int {
-
+		// 
+		$this->connection->queue_declare( $queue_name, false, true, false, false );
+		
 	}
 }
