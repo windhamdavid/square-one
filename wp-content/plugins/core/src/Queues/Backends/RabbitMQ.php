@@ -13,7 +13,7 @@ class RabbitMQ implements Backend {
 	}
 
 	public function get_type(): string {
-		// TODO: Implement get_type() method.
+		return self::class;
 	}
 
 	public function enqueue( string $queue_name, Message $m ) {
