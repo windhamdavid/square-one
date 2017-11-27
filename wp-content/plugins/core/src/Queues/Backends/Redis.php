@@ -45,8 +45,14 @@ class Redis implements Backend {
 	}
 
 	public function ack( string $job_id, string $queue_name ) {
-		$item = $this->predis->get( [ $job_id ] );
-		print_r($item);die;
+		$item = json_decode( $this->predis->get( $job_id ), true );
+		$priority = key( $item );
+
+		$task = json_decode( $item[ $priority ], true );
+		$task['completed'] = time();
+
+		// Save it in a completed_$queue_name sorted set.
+		$this->predis->zadd( 'completed_' . $queue_name, $priority, json_encode( $task ) );
 	}
 
 	public function nack( string $job_id, string $queue_name ) {
