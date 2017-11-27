@@ -7,9 +7,12 @@ use Tribe\Project\Queues\Message;
 
 class RabbitMQ implements Backend {
 
-	protected $channel = null;
+	protected $connection = null;
 
-	public function __construct( $channel ) {
+	public function __construct( AMQPChannel $connection ) {
+		$this->connection = $connection;
+		print_r( $connection );
+		print_r( gettype( $connection ) );die;
 	}
 
 	public function get_type(): string {
@@ -33,6 +36,6 @@ class RabbitMQ implements Backend {
 	}
 
 	public function count( string $queue_name ): int {
-		// TODO: Implement count() method.
+
 	}
 }
