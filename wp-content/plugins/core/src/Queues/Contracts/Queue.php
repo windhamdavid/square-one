@@ -35,6 +35,10 @@ abstract class Queue {
 		return $this->backend->count( $this->get_name() );
 	}
 
+	public function cleanup() {
+		$this->backend->cleanup();
+	}
+
 	public function ack( $job_id ) {
 		$this->backend->ack( $job_id, $this->get_name() );
 	}
