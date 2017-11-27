@@ -18,8 +18,23 @@ class RabbitMQ implements Backend {
 		return self::class;
 	}
 
-	public function enqueue( string $queue_name, Message $m ) {
-		// TODO: Implement enqueue() method.
+	public function enqueue( string $queue_name, Message $message ) {
+		$rabbit_message = $this->add_to_queue( $message );
+		$this->channel->basic_publish( $rabbit_message, '', $queue_name );
+	}
+
+	private function add_to_queue( $queue_name, $message ) {
+		$data = [
+			'task_handler' => $message->get_task_handler(),
+			'args'         => $message->get_args(),
+		];
+
+		return new AMQPMessage( json_encode( $data ),
+			[
+				'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
+				'priority'      => $message->get_priority(),
+			]
+		);
 	}
 
 	public function dequeue( string $queue_name ) {
