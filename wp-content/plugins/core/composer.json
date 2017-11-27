@@ -11,7 +11,8 @@
     "pimple/pimple": "~3.0@dev",
     "johnbillion/extended-cpts": "^4.0",
     "twig/twig": "^2.4",
-    "jbzoo/pimpledumper": "^1.2"
+    "jbzoo/pimpledumper": "^1.2",
+    "php-amqplib/php-amqplib": ">=2.6.1"
   },
   "autoload": {
     "psr-4": {

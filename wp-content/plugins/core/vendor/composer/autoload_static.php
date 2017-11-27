@@ -25,6 +25,7 @@ class ComposerStaticInit832c304df78b6d54281b9d2fb32919ae
         'P' => 
         array (
             'Psr\\Container\\' => 14,
+            'PhpAmqpLib\\' => 11,
         ),
         'J' => 
         array (
@@ -52,6 +53,10 @@ class ComposerStaticInit832c304df78b6d54281b9d2fb32919ae
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
         'JBZoo\\PimpleDumper\\' => 
         array (
