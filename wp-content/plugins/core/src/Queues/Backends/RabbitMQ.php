@@ -20,7 +20,7 @@ class RabbitMQ implements Backend {
 
 	public function enqueue( string $queue_name, Message $message ) {
 		$rabbit_message = $this->add_to_queue( $message );
-		$this->channel->queue_declare( $queue_name, false, true, false, false );
+		$this->channel->queue_declare( $queue_name, true, true, false, false );
 		$this->channel->basic_publish( $rabbit_message, '', $queue_name );
 	}
 
