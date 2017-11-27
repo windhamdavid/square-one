@@ -41,15 +41,21 @@ class RabbitMQ implements Backend {
 	}
 
 	public function dequeue( string $queue_name ) {
-		// TODO: Implement dequeue() method.
+		$this->channel->basic_qos( null, 1, null );
+		$ticket    = $this->channel->basic_consume( $queue_name );
+		$task      = $this->channel->basic_get( $queue_name, null, $ticket );
+		$priority  = $task->get_properties()['priority'] ?: 10 ;
+		$signature = json_decode( $task->getBody(), true );
+
+		return new Message( $signature['task_handler'], $signature['args'], $priority, $ticket );
 	}
 
 	public function ack( string $job_id, string $queue_name ) {
-		// TODO: Implement ack() method.
+		
 	}
 
 	public function nack( string $job_id, string $queue_name ) {
-		// TODO: Implement nack() method.
+		$this->channel->basic_nack( $job_id );
 	}
 
 	public function count( string $queue_name ): int {
