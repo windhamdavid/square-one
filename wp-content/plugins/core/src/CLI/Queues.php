@@ -159,6 +159,8 @@ class Queues extends \WP_CLI_Command {
 
 		$queue = Queue::get_instance( $queue_name );
 
+		$queue->cleanup();
+
 	}
 
 }
