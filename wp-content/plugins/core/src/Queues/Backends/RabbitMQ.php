@@ -9,6 +9,7 @@ use Tribe\Project\Queues\Message;
 class RabbitMQ implements Backend {
 
 	protected $channel = null;
+	protected $task    = null;
 
 	public function __construct( \PhpAmqpLib\Channel\AMQPChannel $connection ) {
 		$this->channel = $connection;
@@ -51,15 +52,21 @@ class RabbitMQ implements Backend {
 	}
 
 	public function ack( string $job_id, string $queue_name ) {
-		
+		$tag = $this->task->delivery_info['delivery_tag'];
+		$this->channel->basic_ack( $tag );
 	}
 
 	public function nack( string $job_id, string $queue_name ) {
-		$this->channel->basic_nack( $job_id );
+		$tag = $this->task->delivery_info['delivery_tag'];
+		$this->channel->basic_nack( $tag );
 	}
 
 	public function count( string $queue_name ): int {
 		$queue = $this->channel->queue_declare( $queue_name, true, true, false, false );
 		return $queue[1];
+	}
+
+	public function cleanup() {
+		null;
 	}
 }
