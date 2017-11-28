@@ -42,10 +42,10 @@ class RabbitMQ implements Backend {
 
 	public function dequeue( string $queue_name ) {
 		$this->channel->basic_qos( null, 1, null );
-		$ticket    = $this->channel->basic_consume( $queue_name );
-		$task      = $this->channel->basic_get( $queue_name, null, $ticket );
-		$priority  = $task->get_properties()['priority'] ?: 10 ;
-		$signature = json_decode( $task->getBody(), true );
+		$ticket     = $this->channel->basic_consume( $queue_name );
+		$this->task = $this->channel->basic_get( $queue_name, null, $ticket );
+		$priority   = $this->task->get_properties()['priority'] ?: 10 ;
+		$signature  = json_decode( $this->task->getBody(), true );
 
 		return new Message( $signature['task_handler'], $signature['args'], $priority, $ticket );
 	}
