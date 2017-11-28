@@ -3,6 +3,7 @@
 namespace Tribe\Project\Queues\Backends;
 
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Channel\AMQPChannel;
 use Tribe\Project\Queues\Contracts\Backend;
 use Tribe\Project\Queues\Message;
 
@@ -11,7 +12,7 @@ class RabbitMQ implements Backend {
 	protected $channel = null;
 	protected $task    = null;
 
-	public function __construct( \PhpAmqpLib\Channel\AMQPChannel $connection ) {
+	public function __construct( AMQPChannel $connection ) {
 		$this->channel = $connection;
 	}
 
