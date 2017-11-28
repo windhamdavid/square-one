@@ -3,17 +3,16 @@
 namespace Tribe\Project\CLI;
 
 use cli\Table;
-use Pimple\Container;
+use Tribe\Project\Queues\Contracts\Backend;
 use Tribe\Project\Queues\Contracts\Queue;
-use Tribe\Project\Queues\Backends\MySQL;
 use Tribe\Project\Queues\Tasks\Noop;
 
 class Queues extends \WP_CLI_Command {
 
-	protected $container = null;
+	protected $backend;
 
-	public function __construct( Container $container ) {
-		$this->container = $container;
+	public function __construct( Backend $container ) {
+		$this->backend = $container;
 		parent::__construct();
 	}
 
@@ -44,33 +43,34 @@ class Queues extends \WP_CLI_Command {
 	}
 
 	public function add_table() {
-		global $wpdb;
+		if ( 'Tribe\Project\Queues\Backends\MySQL' !== get_class( $this->backend ) ) {
+			\WP_CLI::error( __( 'You cannot add a table a non-MySQL backend' ) );
+		}
 
-		$table_exists = $wpdb->query( $wpdb->prepare(
-			'SHOW TABLES LIKE %s',
-			$wpdb->prefix . MySQL::DB_TABLE
-		) );
-
-		// Create table.
-		if ( ! $table_exists ) {
-			$table_name = $wpdb->prefix . MySQL::DB_TABLE;
-			$wpdb->query(
-				"CREATE TABLE $table_name (
-					id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-					queue varchar(255) NOT NULL,
-					task_handler varchar(255) NOT NULL,
-					args text NOT NULL,
-					priority int(3),
-					taken int(10) NOT NULL DEFAULT 0,
-					done int(10)
-				)"
-			);
-
-			\WP_CLI::success( __( 'Task table successfully created.', 'tribe' ) );
+		if ( $this->backend->table_exists() ) {
+			\WP_CLI::success( __( 'Task table already exists.', 'tribe' ) );
 			return;
 		}
 
-		\WP_CLI::success( __( 'Task table already exists.', 'tribe' ) );
+		$this->backend->create_table();
+		\WP_CLI::success( __( 'Task table successfully created.', 'tribe' ) );
+
+	}
+
+	public function cleanup( $args ) {
+		if ( ! isset( $args[0] ) ) {
+			\WP_CLI::error( __( 'You must specify which queue you wish to process.', 'tribe' ) );
+		}
+
+		$queue_name = $args[0];
+
+		if ( ! array_key_exists( $queue_name, Queue::instances() ) ) {
+			\WP_CLI::error( __( 'That queue name doesn\'t appear to be valid.', 'tribe' ) );
+		}
+
+		$queue = Queue::get_instance( $queue_name );
+
+		$queue->cleanup();
 	}
 
 	/**

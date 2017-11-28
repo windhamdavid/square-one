@@ -30,6 +30,7 @@ class MySQL implements Backend {
 			'args'         => json_encode( $message->get_args() ),
 			'priority'     => $message->get_priority(),
 			'taken'        => 0,
+			'done'         => 0,
 		];
 	}
 
@@ -40,8 +41,8 @@ class MySQL implements Backend {
 			$wpdb->prepare(
 				"SELECT * FROM $this->table_name
 				WHERE queue = %s
-				AND ( taken = 0 OR taken IS NULL ) 
-				AND done IS NULL
+				AND taken = 0 
+				AND done = 0
 				ORDER BY priority ASC
 				LIMIT 0,1
 				",
@@ -92,9 +93,9 @@ class MySQL implements Backend {
 		$stale = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT id FROM $this->table_name
-				WHERE taken > %d
+				WHERE taken < %d
 				",
-				time() - 300
+				time() + 300
 			)
 		);
 
@@ -111,9 +112,37 @@ class MySQL implements Backend {
 		global $wpdb;
 
 		return $wpdb->get_var( $wpdb->prepare (
-			"SELECT COUNT(*) FROM $this->table_name WHERE queue = %s AND done IS NULL",
+			"SELECT COUNT(*) FROM $this->table_name WHERE queue = %s AND done = 0",
 			$queue_name
 		) );
 
+	}
+
+	public function table_exists() {
+		global $wpdb;
+
+		$table_exists = $wpdb->query( $wpdb->prepare(
+			'SHOW TABLES LIKE %s',
+			$wpdb->prefix . MySQL::DB_TABLE
+		) );
+
+		return $table_exists ?: false;
+	}
+
+	public function create_table() {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . MySQL::DB_TABLE;
+		$wpdb->query(
+			"CREATE TABLE $table_name (
+					id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+					queue varchar(255) NOT NULL,
+					task_handler varchar(255) NOT NULL,
+					args text NOT NULL,
+					priority int(3),
+					taken int(10) NOT NULL DEFAULT 0,
+					done int(10)
+				)"
+		);
 	}
 }
