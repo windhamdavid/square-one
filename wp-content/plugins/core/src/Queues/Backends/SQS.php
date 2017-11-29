@@ -49,7 +49,22 @@ class SQS implements Backend {
 	}
 
 	public function dequeue( string $queue_name ) {
-		// TODO: Implement dequeue() method.
+		$queue_url = $this->get_queue_url( $queue_name );
+
+		$message_reply = $this->sqs->receiveMessage( [
+			'QueueUrl'            => $queue_url,
+			'MaxNumberOfMessages' => 1,
+			'VisibilityTimeout'   => HOUR_IN_SECONDS,
+		] );
+
+		if ( empty ( $message_reply['Messages'] ) ) {
+			return new Message( '' );
+		}
+
+		$body   = json_decode( $message_reply['Messages'][0]['Body'], 1 );
+		$job_id = $message_reply['Messages'][0]['ReceiptHandle'];
+
+		return new Message( $body['callback'], $body['args'], $body['priority'], $job_id );
 	}
 
 	public function ack( string $job_id, string $queue_name ) {
