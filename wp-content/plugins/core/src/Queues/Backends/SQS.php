@@ -33,9 +33,19 @@ class SQS implements Backend {
 		$queue_url = $this->get_queue_url( $queue_name );
 
 		$this->sqs->sendMessage( [
-			'QueueUrl' => $queue_url,
-			'MessageBody' => json_encode( $message ),
+			'QueueUrl'               => $queue_url,
+			'MessageBody'            => json_encode( $this->prepare_message( $message ) ),
+			'MessageGroupId'         => $message->get_priority(),
+			'MessageDeduplicationId' => md5( json_encode( $message ) . microtime() ),
 		] );
+	}
+
+	private function prepare_message( Message $message ) {
+		return [
+			'callback' => $message->get_task_handler(),
+			'args'     => $message->get_args(),
+			'priority' => $message->get_priority(),
+		];
 	}
 
 	public function dequeue( string $queue_name ) {
