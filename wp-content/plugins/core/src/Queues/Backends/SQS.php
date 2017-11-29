@@ -68,15 +68,30 @@ class SQS implements Backend {
 	}
 
 	public function ack( string $job_id, string $queue_name ) {
-		// TODO: Implement ack() method.
+		$queue_url = $this->get_queue_url( $queue_name );
+
+		$this->sqs->deleteMessage( [
+			'QueueUrl' => $queue_url,
+			'ReceiptHandle' => $job_id,
+		] );
 	}
 
 	public function nack( string $job_id, string $queue_name ) {
-		// TODO: Implement nack() method.
+		if ( '' == $job_id ) {
+			return;
+		}
+
+		$queue_url = $this->get_queue_url( $queue_name );
+
+		$this->sqs->changeMessageVisibility( [
+			'QueueUrl'          => $queue_url,
+			'ReceiptHandle'     => $job_id,
+			'VisibilityTimeout' => 0,
+		] );
 	}
 
 	public function cleanup() {
-		// TODO: Implement cleanup() method.
+		null;
 	}
 
 	public function count( string $queue_name ): int {
