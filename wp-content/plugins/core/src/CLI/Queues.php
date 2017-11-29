@@ -131,7 +131,7 @@ class Queues extends \WP_CLI_Command {
 
 			if ( ! class_exists( $task_class ) ) {
 				$queue->nack( $job->get_job_id() );
-				return;
+				continue;
 			}
 
 			$task = new $task_class();
