@@ -18,6 +18,7 @@ class Queues_Provider implements ServiceProviderInterface {
 		$container['queues.backend.sqs.client'] = function () {
 			$credentials = [
 				'region'      => defined( 'AWS_REGION' ) ? AWS_REGION : 'us-east-1',
+				'version'     => defined( 'SQS_VERSION' ) ? SQS_VERSION : 'latest',
 				'credentials' => [
 					'key'    => AWS_KEY,
 					'secret' => AWS_SECRET,

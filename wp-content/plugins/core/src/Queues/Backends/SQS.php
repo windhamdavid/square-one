@@ -26,10 +26,13 @@ class SQS implements Backend {
 		return self::class;
 	}
 
-	public function enqueue( string $queue_name, Message $m ) {
-		$this->get_queue_url( $queue_name );
+	public function enqueue( string $queue_name, Message $message ) {
+		$queue_url = $this->get_queue_url( $queue_name );
 
-		$this->sqs->sendMessage();
+		$this->sqs->sendMessage( [
+			'QueueUrl' => $queue_url,
+			'MessageBody' => json_encode( $message ),
+		] );
 	}
 
 	public function dequeue( string $queue_name ) {
