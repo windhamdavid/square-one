@@ -95,6 +95,13 @@ class SQS implements Backend {
 	}
 
 	public function count( string $queue_name ): int {
-		// TODO: Implement count() method.
+		$queue_url = $this->get_queue_url( $queue_name );
+
+		$queue = $this->sqs->getQueueAttributes( [
+			'QueueUrl'       => $queue_url,
+			'AttributeNames' => [ 'All' ],
+		] );
+
+		return $queue->get( 'Attributes' )['ApproximateNumberOfMessages'];
 	}
 }
