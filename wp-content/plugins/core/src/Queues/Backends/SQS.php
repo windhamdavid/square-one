@@ -15,8 +15,11 @@ class SQS implements Backend {
 	}
 
 	private function get_queue_url( $queue_name ) {
-		$queue_url = $this->sqs->createQueue(array(
-			'QueueName' => $queue_name,
+		$queue_url = $this->sqs->createQueue( array(
+			'QueueName'  => $queue_name . '.fifo',
+			'Attributes' => [
+				'FifoQueue' => 'true',
+			],
 		) );
 
 		return $queue_url->get( 'QueueUrl' );
