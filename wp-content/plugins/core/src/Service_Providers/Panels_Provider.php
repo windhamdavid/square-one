@@ -77,7 +77,7 @@ class Panels_Provider implements ServiceProviderInterface {
         });
 		add_action( 'wp_footer', [ $this, 'register_panels_stuff_fe' ], 11 );
 		add_action( 'wp_footer', function(){
-		    echo "<script type='text/javascript' src='https://square1.tribe/wp-content/plugins/panel-builder/ui/dist/master.js?ver=1521778242'></script>";
+		    echo "<script type='text/javascript' src='" . home_url() . "/wp-content/plugins/panel-builder/ui/dist/master.js?ver=1521778242'></script>";
         }, 999999);
 	}
 
