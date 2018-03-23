@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "93906c66b1f32665629991f8ef53c92b",
-    "content-hash": "1f33d21d798ceb6ad670fc94a977cb98",
+    "hash": "b5495545d3b5543708753164906af290",
+    "content-hash": "5dd9422045d67da3ae388fd6161b3ada",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -258,16 +258,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.3.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+                "reference": "ba1bce30baab94dddde21c4ae93872b1762d39fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
-                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ba1bce30baab94dddde21c4ae93872b1762d39fa",
+                "reference": "ba1bce30baab94dddde21c4ae93872b1762d39fa",
                 "shasum": ""
             },
             "require": {
@@ -277,7 +277,7 @@
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "^4.0 || ^5.0",
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4",
                 "psr/log": "^1.0"
             },
             "suggest": {
@@ -286,7 +286,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.2-dev"
+                    "dev-master": "6.3-dev"
                 }
             },
             "autoload": {
@@ -319,7 +319,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-06-22 18:50:49"
+            "time": "2018-03-11 15:03:34"
         },
         {
             "name": "guzzlehttp/promises",
@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "649e354b657977c312cb6fb95720b1ac485f2092"
+                "reference": "59f1a30206f753cb29b2e4c8352c10968dadb5e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/649e354b657977c312cb6fb95720b1ac485f2092",
-                "reference": "649e354b657977c312cb6fb95720b1ac485f2092",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/59f1a30206f753cb29b2e4c8352c10968dadb5e7",
+                "reference": "59f1a30206f753cb29b2e4c8352c10968dadb5e7",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +435,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-02-28 07:24:56"
+            "time": "2018-03-21 13:09:20"
         },
         {
             "name": "hirak/prestissimo",
@@ -871,16 +871,16 @@
         },
         {
             "name": "moderntribe/panel-builder",
-            "version": "dev-3.3-branch",
+            "version": "dev-feature/3.4/new-fields",
             "source": {
                 "type": "git",
                 "url": "git@github.com:moderntribe/panel-builder.git",
-                "reference": "12ebb7f6b7fd4f5f2bd85739d3b50766feeabc3b"
+                "reference": "6a38cf0aa3bcabc000d98bef3cd728a37dd20e96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/panel-builder/zipball/12ebb7f6b7fd4f5f2bd85739d3b50766feeabc3b",
-                "reference": "12ebb7f6b7fd4f5f2bd85739d3b50766feeabc3b",
+                "url": "https://api.github.com/repos/moderntribe/panel-builder/zipball/6a38cf0aa3bcabc000d98bef3cd728a37dd20e96",
+                "reference": "6a38cf0aa3bcabc000d98bef3cd728a37dd20e96",
                 "shasum": ""
             },
             "require": {
@@ -907,10 +907,10 @@
             ],
             "description": "The Modern Tribe Panel Builder plugin",
             "support": {
-                "source": "https://github.com/moderntribe/panel-builder/tree/3.3-branch",
+                "source": "https://github.com/moderntribe/panel-builder/tree/feature/3.4/new-fields",
                 "issues": "https://github.com/moderntribe/panel-builder/issues"
             },
-            "time": "2018-01-04 21:53:51"
+            "time": "2018-03-23 00:39:06"
         },
         {
             "name": "moderntribe/tribe-libs",
@@ -918,12 +918,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:moderntribe/tribe-libs.git",
-                "reference": "b282f0be370fcd77865cfad449e5b1756efe17d6"
+                "reference": "b4d46349631b5af0929ca9db049796541db004a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moderntribe/tribe-libs/zipball/b282f0be370fcd77865cfad449e5b1756efe17d6",
-                "reference": "b282f0be370fcd77865cfad449e5b1756efe17d6",
+                "url": "https://api.github.com/repos/moderntribe/tribe-libs/zipball/b4d46349631b5af0929ca9db049796541db004a1",
+                "reference": "b4d46349631b5af0929ca9db049796541db004a1",
                 "shasum": ""
             },
             "require": {
@@ -943,7 +943,7 @@
                 "source": "https://github.com/moderntribe/tribe-libs/tree/master",
                 "issues": "https://github.com/moderntribe/tribe-libs/issues"
             },
-            "time": "2018-01-17 19:05:36"
+            "time": "2018-03-20 10:46:28"
         },
         {
             "name": "monolog/monolog",
@@ -1788,25 +1788,25 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "3.4.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "f3109a6aedd20e35c3a33190e932c2b063b7b50e"
+                "reference": "c2dd74950a0bab144ed5ee7e266b9795fc6fb230"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/f3109a6aedd20e35c3a33190e932c2b063b7b50e",
-                "reference": "f3109a6aedd20e35c3a33190e932c2b063b7b50e",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/c2dd74950a0bab144ed5ee7e266b9795fc6fb230",
+                "reference": "c2dd74950a0bab144ed5ee7e266b9795fc6fb230",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": "^7.1.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -1838,7 +1838,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2018-01-11 07:56:07"
+            "time": "2018-01-18 22:19:50"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1905,12 +1905,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "45990c3644032f255824a6a3819ba5d828236eef"
+                "reference": "092871ad2d511b29191f4684bbd6b803e2f80aed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/45990c3644032f255824a6a3819ba5d828236eef",
-                "reference": "45990c3644032f255824a6a3819ba5d828236eef",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/092871ad2d511b29191f4684bbd6b803e2f80aed",
+                "reference": "092871ad2d511b29191f4684bbd6b803e2f80aed",
                 "shasum": ""
             },
             "require": {
@@ -1919,8 +1919,8 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.3@dev"
+                "symfony/debug": "^2.7",
+                "symfony/phpunit-bridge": "^3.3"
             },
             "type": "library",
             "extra": {
@@ -1963,7 +1963,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-01-30 13:51:48"
+            "time": "2018-03-20 04:31:47"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -1971,12 +1971,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "90b2f4112475578eb60269266e79514e1b4128b6"
+                "reference": "fe2a5c22c94949983be10263417f47f8551d5946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/90b2f4112475578eb60269266e79514e1b4128b6",
-                "reference": "90b2f4112475578eb60269266e79514e1b4128b6",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/fe2a5c22c94949983be10263417f47f8551d5946",
+                "reference": "fe2a5c22c94949983be10263417f47f8551d5946",
                 "shasum": ""
             },
             "require": {
@@ -1998,7 +1998,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause-Attribution"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -2013,7 +2013,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2018-01-28 23:08:18"
+            "time": "2018-03-19 21:27:48"
         },
         {
             "name": "webmozart/assert",
