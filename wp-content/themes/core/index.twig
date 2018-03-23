@@ -1,29 +1,23 @@
 {% extends "base.twig" %}
 
 {% block main %}
+    <div style="display:none;">
+           {{ wp_editor }}
+       </div>
+    {% block subhead %}
+        {{ include( 'content/header/sub.twig' ) }}
+    {% endblock %}
+    <div class="l-container">
+        <h1>Panel Fields Demo</h1>
+        <div id="modular-content" class="postbox ">
+            <input type="hidden" id="title" value="foobar">
+            <input type="hidden" id="post_ID" value="foobar">
+            <div class="inside">
+                {{ panels_box }}
+            </div>
+        </div>
 
-	{% block subhead %}
-		{{ include( 'content/header/sub.twig' ) }}
-	{% endblock %}
 
-	<div class="l-container">
-
-		{% if posts|length > 0 %}
-
-			{% for post in posts %}
-				{{ include( 'content/loop/results.twig' ) }}
-			{% endfor %}
-
-			{% if pagination %}
-				{{ pagination }}
-			{% endif %}
-
-		{% else %}
-
-			{{ include( 'content/no-results.twig' ) }}
-
-		{% endif %}
-
-	</div>
+    </div>
 
 {% endblock %}

@@ -43,6 +43,11 @@ if ( file_exists( __DIR__ . '/local-config.php' ) ) {
 	include __DIR__ . '/local-config.php';
 }
 
+if ( file_exists( __DIR__ . '/build-process.php' ) ) {
+	include __DIR__ . '/build-process.php';
+}
+
+
 // ==============================================================
 // Assign default constant values
 // ==============================================================
@@ -138,7 +143,7 @@ $config_defaults = [
 	'S3_UPLOADS_REGION'       => tribe_getenv( 'S3_UPLOADS_REGION', '' ),
 
 	// Glomar
-	'TRIBE_GLOMAR'            => tribe_getenv( 'TRIBE_GLOMAR', '' ),
+	'TRIBE_GLOMAR'            => tribe_getenv( 'TRIBE_GLOMAR', false ),
 ];
 
 // ==============================================================
