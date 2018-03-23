@@ -25,7 +25,7 @@ class Super extends Panel_Type_Config {
 		$panel->add_field( new Fields\HTML( [
 			'name'        => 'intro',
 			'label'       => 'Welcome to Demo Panels',
-			'description' => '<p>Welcome to the Demo Panels Site! Here you can see a list of all of the fields we have
+			'description' => '<h2>Demo Panel Fields</h2><p>Welcome to the Demo Panels Site! Here you can see a list of all of the fields we have
 available to us in Panels 3.0. Feel free to mess around with them and see how they work!.</p><h3>This is an HTML Field</h3><p>As it happens, this is actually
 an example of the HTML Field. It allows us to display any HTML within the UI. It doesn\'t have any effect on the FE output, but is
 very handy for things like helper messages.</p>',
@@ -38,7 +38,7 @@ very handy for things like helper messages.</p>',
 
 		$text_inputs->add_field( new Fields\HTML( [
 			'name'        => 'text_intro',
-			'description' => '<p>Here we see the various Single Inputs. These simple inputs take a single value (or a range of values for Range). They typically 
+			'description' => '<h3>Single Input Types</h3><p>Here we see the various Single Inputs. These simple inputs take a single value (or a range of values for Range). They typically 
 get used for things like Titles, app keys, and various numbers.</p>',
 		] ) );
 
@@ -50,7 +50,7 @@ get used for things like Titles, app keys, and various numbers.</p>',
 
 		$text_inputs->add_field( new Fields\HTML( [
 			'name'        => 'number_intro',
-			'description' => '<p>The Number field can have min, max, and step parameters. Here, the field has a 
+			'description' => '<h3>Number Field</h3><p>The Number field can have min, max, and step parameters. Here, the field has a 
 max of 200 and a step of "10", meaning it can only accept multiples of 10 (10, 20, 30) and must be less than 200.</p>',
 		] ) );
 
@@ -65,7 +65,7 @@ max of 200 and a step of "10", meaning it can only accept multiples of 10 (10, 2
 
 		$text_inputs->add_field( new Fields\HTML( [
 			'name'        => 'range_intro',
-			'description' => '<p>The Range field functions like a number field, but displays as a slider. It can either have a single 
+			'description' => '<h3>Range Field</h3><p>The Range field functions like a number field, but displays as a slider. It can either have a single 
 handle for a single value, or multiple handles to return a range of values. It can also optionally display an input showing the current value,
 though this is available for single values only.</p>',
 		] ) );
@@ -82,7 +82,7 @@ though this is available for single values only.</p>',
 
 		$text_inputs->add_field( new Fields\HTML( [
 			'name'        => 'video',
-			'description' => '<p>Video field is defunct.</p>',
+			'description' => '<h3>Video Field</h3><p>Video field is defunct.</p>',
 		] ) );
 
 		$text_inputs->add_field( new Fields\Video( [
@@ -93,7 +93,7 @@ though this is available for single values only.</p>',
 
 		$text_inputs->add_field( new Fields\HTML( [
 			'name'        => 'toggle_intro',
-			'description' => '<p>The Toggle field functions as a simple on/off switch. It can either display as a toggle component, or a simple checkbox.</p>',
+			'description' => '<h3>Toggle Field</h3><p>The Toggle field functions as a simple on/off switch. It can either display as a toggle component, or a simple checkbox.</p>',
 		] ) );
 
 		$text_inputs->add_field( new Fields\Toggle( [
@@ -110,7 +110,7 @@ though this is available for single values only.</p>',
 
 		$textarea_fields->add_field( new Fields\HTML( [
 			'name'        => 'textarea_inputs',
-			'description' => '<p>TextArea fields are useful for adding large chunks of content. They can either be standard Textarea inputs (for 
+			'description' => '<h3>Textarea Fields</h3><p>TextArea fields are useful for adding large chunks of content. They can either be standard Textarea inputs (for 
 adding things like raw code or other non-formatted text), or a full WYSIWYG field, just like the Content Editor.</p>',
 		] ) );
 
@@ -135,7 +135,7 @@ adding things like raw code or other non-formatted text), or a full WYSIWYG fiel
 
 		$multi_selects->add_field( new Fields\HTML( [
 			'name'        => 'multi_selects_intro',
-			'description' => '<p>Here we have all of the option/multi-select fields. They each require a list of options to be set, which
+			'description' => '<h3>Option Fields</h3><p>Here we have all of the option/multi-select fields. They each require a list of options to be set, which
 the user can then choose from.</p>',
 		] ) );
 
@@ -183,7 +183,7 @@ the user can then choose from.</p>',
 
 		$multi_selects->add_field( new Fields\HTML( [
 			'name'        => 'image_select_intro',
-			'description' => '<p>The Image Select and Swatch Select fields function very similarly to a Radio input. However, they
+			'description' => '<h3>Image and Swatch Select</h3><p>The Image Select and Swatch Select fields function very similarly to a Radio input. However, they
 give visual options instead of just a label.</p><p>In the case of the Image Select, each option must have a related image or icon. Typically these
 are either SVG or PNG files. This isn\'t necessarily displayed on the FE, but is simply a way to make the select more visual in the Admin</p>',
 		] ) );
@@ -261,7 +261,7 @@ are either SVG or PNG files. This isn\'t necessarily displayed on the FE, but is
 
 		$image_fields->add_field( new Fields\HTML( [
 			'name'        => 'image_intro',
-			'description' => '<p>The Image Fields are used to allow the user to either Upload or Choose an existing Image from the Media Library.</p>',
+			'description' => '<h3>Image Fields</h3><p>The Image Fields are used to allow the user to either Upload or Choose an existing Image from the Media Library.</p>',
 		] ) );
 
 		$image_fields->add_field( new Fields\Image( [
@@ -291,7 +291,7 @@ Normally a repeater is used instead of this field, but for simple galleries it w
 
 		$misc_fields->add_field( new Fields\HTML( [
 			'name'        => 'cp_intro',
-			'description' => '<p>The Color Picker field is used to select a specific, arbitrary color. It uses the React Color Picker library, 
+			'description' => '<h3>Color Picker</h3><p>The Color Picker field is used to select a specific, arbitrary color. It uses the React Color Picker library, 
 which allows for a myriad of UI experiences. See <a href="https://casesandberg.github.io/react-color/" target="_blank">The Project Page</a> for more info.</p>',
 		] ) );
 
@@ -309,7 +309,7 @@ which allows for a myriad of UI experiences. See <a href="https://casesandberg.g
 
 		$misc_fields->add_field( new Fields\HTML( [
 			'name'        => 'link_intro',
-			'description' => '<p>Link Field allows users to input URLs with a label and defined target (either same window or new window). It\'s 
+			'description' => '<h3>Link Field</h3><p>Link Field allows users to input URLs with a label and defined target (either same window or new window). It\'s 
 most often used when a CTA needs to be added to a panel or when a button is required.</p>',
 		] ) );
 
@@ -321,7 +321,7 @@ most often used when a CTA needs to be added to a panel or when a button is requ
 
 		$misc_fields->add_field( new Fields\HTML( [
 			'name'        => 'post_list_intro',
-			'description' => '<p>The Post List field is a powerful (and potentially confusing) field. It allows the user to 
+			'description' => '<h3>Post List Field</h3><p>The Post List field is a powerful (and potentially confusing) field. It allows the user to 
 choose to display specific existing posts, query for posts based on criteria such as Taxonomy, or create a "psuedo-post" from custom content.</p>
 <p>If content is created, it\'s not actually added as a real Post. Rather, it\'s simply stored within the Panel content for display. This can be useful 
 for allowing users to display external news articles or posts without having to actually create a post within their system.</p><p>
@@ -347,7 +347,7 @@ be filtered by Taxonomies or other various filters.
 
 		$tabbed_fields->add_field( new Fields\HTML( [
 			'name'        => 'tabbed_intro',
-			'description' => '<p>Individual fields can be organized into a tabbed interface as seen below. Each tab can have an icon and label if required.</p>',
+			'description' => '<h3>Tabbed Fields</h3><p>Individual fields can be organized into a tabbed interface as seen below. Each tab can have an icon and label if required.</p>',
 		] ) );
 
 		$tab_group = new Fields\Tab_Group( [
@@ -411,7 +411,7 @@ be filtered by Taxonomies or other various filters.
 
 		$panel->add_field( new Fields\HTML( [
 			'name'        => 'repeater_intro',
-			'description' => '<p>The Repeater Field is used to allow the user to add an arbitrary number of field "groups" to a panel. For 
+			'description' => '<h3>Repeater Fields</h3><p>The Repeater Field is used to allow the user to add an arbitrary number of field "groups" to a panel. For 
 instance, it can be used to add "Rows", each of which is made up of a handful of fields. The rows can then be looped over and displayed in the FE.</p><p>
 The repeater can have a min/max # of items (1 and 3 for this example). It takes "child" fields, which can be any of the Panel Fields seen here.</p>',
 		] ) );
@@ -443,7 +443,7 @@ The repeater can have a min/max # of items (1 and 3 for this example). It takes 
 
 		$panel->add_field( new Fields\HTML( [
 			'name'        => 'setup_intro',
-			'description' => '<p>Panel Fields can be organized into any number of Tabs (here, Content and Setup) for organization. This allows fields 
+			'description' => '<h3>Panel Tabs</h3><p>Panel Fields can be organized into any number of Tabs (here, Content and Setup) for organization. This allows fields 
 to be grouped intelligently.</p>',
 		] ), 'setup' );
 
