@@ -120,9 +120,9 @@ $config_defaults = [
 	'FILE_CACHE_MAX_FILE_AGE' => 315000000, // about 10 years
 
 	// Debug
-	'WP_DEBUG'                => tribe_getenv( 'WP_DEBUG', true ),
-	'WP_DEBUG_LOG'            => tribe_getenv( 'WP_DEBUG_LOG', true ),
-	'WP_DEBUG_DISPLAY'        => tribe_getenv( 'WP_DEBUG_DISPLAY', true ),
+	'WP_DEBUG'                => tribe_getenv( 'WP_DEBUG', false ),
+	'WP_DEBUG_LOG'            => tribe_getenv( 'WP_DEBUG_LOG', false ),
+	'WP_DEBUG_DISPLAY'        => tribe_getenv( 'WP_DEBUG_DISPLAY', false ),
 	'SAVEQUERIES'             => tribe_getenv( 'SAVEQUERIES', true ),
 	'SCRIPT_DEBUG'            => tribe_getenv( 'SCRIPT_DEBUG', true ),
 	'CONCATENATE_SCRIPTS'     => tribe_getenv( 'CONCATENATE_SCRIPTS', false ),
