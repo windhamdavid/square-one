@@ -3,7 +3,7 @@ namespace Tribe\Project\Templates\Components;
 
 use Tribe\Project\Taxonomies\Category\Category;
 
-class Taxonomy_List extends Component {
+class Term_List extends List_Items {
 
 	const TEMPLATE_NAME = 'components/taxonomy-list.twig';
 

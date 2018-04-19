@@ -3,9 +3,9 @@ namespace Tribe\Project\Templates\Components;
 
 use Tribe\Project\Taxonomies\Category\Category;
 
-class Items extends Component {
+class List_Items extends Component {
 
-	const TEMPLATE_NAME = 'components/items.twig';
+	const TEMPLATE_NAME = 'components/list-items.twig';
 
 	const LIST_CLASSES      = 'list_classes';
 	const LIST_ITEM_CLASSES = 'list_item_classes';
