@@ -8,6 +8,7 @@ use Tribe\Project\Service_Providers\Admin_Provider;
 use Tribe\Project\Service_Providers\Asset_Provider;
 use Tribe\Project\Service_Providers\Cache_Provider;
 use Tribe\Project\Service_Providers\CLI_Provider;
+use Tribe\Project\Service_Providers\Clockr_Provider;
 use Tribe\Project\Service_Providers\Object_Meta_Provider;
 use Tribe\Project\Service_Providers\Nav_Menu_Provider;
 use Tribe\Project\Service_Providers\Panels_Provider;
@@ -27,6 +28,7 @@ use Tribe\Project\Service_Providers\Theme_Provider;
 use Tribe\Project\Service_Providers\Settings_Provider;
 use Tribe\Project\Service_Providers\Twig_Service_Provider;
 use Tribe\Project\Service_Providers\Util_Provider;
+use Tribe\Project\Templates\API_Code;
 
 class Core {
 
@@ -67,6 +69,7 @@ class Core {
 		$this->container->register( new Shortcode_Provider() );
 		$this->container->register( new Object_Meta_Provider() );
 		$this->container->register( new CLI_Provider() );
+		$this->container->register( new Clockr_Provider() );
 
 		$this->load_post_type_providers();
 		$this->load_taxonomy_providers();

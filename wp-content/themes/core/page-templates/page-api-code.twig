@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html {{ language_attributes }}>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2b474f;
+            color: white;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        main {
+            margin: 40px auto;
+            max-width: 100%;
+            width: 600px;
+            text-align: center;
+        }
+
+        h2 {
+            line-height: 1.5;
+        }
+
+        textarea {
+            font-size: 16px;
+            padding: 2px 5px;
+            border: none;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+
+    {% block main %}
+
+        <div>
+            <img src="{{ logo }}" />
+            <h2>Thanks for registering with Clockr! Please paste the below code into the Clockr Application:</h2>
+            <div>
+                <textarea disabled >{{ code }}</textarea>
+            </div>
+        </div>
+
+    {% endblock %}
+
+</main>
+
+</body>
