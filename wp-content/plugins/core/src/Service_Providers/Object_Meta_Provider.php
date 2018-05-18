@@ -8,16 +8,20 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Tribe\Libs\Object_Meta\Meta_Repository;
 use Tribe\Project\Object_Meta\Example;
+use Tribe\Project\Object_Meta\Redirects;
 use Tribe\Project\Post_Types;
+use Tribe\Project\Redirects\Page;
 use Tribe\Project\Settings;
 use Tribe\Project\Taxonomies;
 
 class Object_Meta_Provider implements ServiceProviderInterface {
 	const REPO    = 'object_meta.collection_repo';
 	const EXAMPLE = 'object_meta.example';
+	const REDIRECTS = 'object_meta.redirects';
 
 	private $keys = [
 		self::EXAMPLE,
+		self::REDIRECTS,
 	];
 
 	public function register( Container $container ) {
@@ -47,8 +51,18 @@ class Object_Meta_Provider implements ServiceProviderInterface {
 			return new Example( [
 				'post_types'     => [ Post_Types\Page\Page::NAME, Post_Types\Post\Post::NAME ],
 				'taxonomies'     => [ Taxonomies\Category\Category::NAME ],
-				'settings_pages' => [ Settings\General::instance()->get_slug() ],
+				'settings_pages' => [
+					Settings\General::instance()->get_slug(),
+				],
 				'users'          => true,
+			] );
+		};
+
+		$container[ self::REDIRECTS ] = function ( Container $container ) {
+			return new Redirects( [
+				'settings_pages' => [
+					Page::instance()->get_slug(),
+				],
 			] );
 		};
 	}

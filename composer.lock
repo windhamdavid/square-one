@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "93906c66b1f32665629991f8ef53c92b",
-    "content-hash": "1f33d21d798ceb6ad670fc94a977cb98",
+    "content-hash": "99dd0c907018698052daa149dff3ba15",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -85,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-12-21 23:06:20"
+            "time": "2017-12-21T23:06:20+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -137,7 +136,7 @@
                 "stream_filter_append",
                 "stream_filter_register"
             ],
-            "time": "2017-08-18 09:54:01"
+            "time": "2017-08-18T09:54:01+00:00"
         },
         {
             "name": "composer/installers",
@@ -254,7 +253,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2017-08-09 07:53:48"
+            "time": "2017-08-09T07:53:48+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -319,7 +318,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-06-22 18:50:49"
+            "time": "2017-06-22T18:50:49+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -370,7 +369,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2018-02-28 07:24:33"
+            "time": "2018-02-28T07:24:33+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -435,7 +434,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-02-28 07:24:56"
+            "time": "2018-02-28T07:24:56+00:00"
         },
         {
             "name": "hirak/prestissimo",
@@ -486,7 +485,7 @@
                 "parallel",
                 "speedup"
             ],
-            "time": "2017-05-27 04:45:45"
+            "time": "2017-05-27T04:45:45+00:00"
         },
         {
             "name": "humanmade/mercator",
@@ -525,7 +524,7 @@
                 "source": "https://github.com/humanmade/Mercator/tree/1.0.1",
                 "issues": "https://github.com/humanmade/Mercator/issues"
             },
-            "time": "2017-06-13 08:40:13"
+            "time": "2017-06-13T08:40:13+00:00"
         },
         {
             "name": "humanmade/s3-uploads",
@@ -561,7 +560,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2016-04-29 10:00:39"
+            "time": "2016-04-29T10:00:39+00:00"
         },
         {
             "name": "jbzoo/pimpledumper",
@@ -620,7 +619,7 @@
                 "pimple",
                 "silex"
             ],
-            "time": "2017-11-14 11:14:50"
+            "time": "2017-11-14T11:14:50+00:00"
         },
         {
             "name": "johnbillion/extended-cpts",
@@ -666,7 +665,7 @@
             ],
             "description": "A library which provides extended functionality to WordPress custom post types and taxonomies.",
             "homepage": "https://github.com/johnbillion/extended-cpts/",
-            "time": "2017-11-01 16:56:21"
+            "time": "2017-11-01T16:56:21+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
@@ -706,7 +705,7 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2018-02-06 16:42:13"
+            "time": "2018-02-06T16:42:13+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -755,7 +754,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2017-05-31 18:42:33"
+            "time": "2017-05-31T18:42:33+00:00"
         },
         {
             "name": "mailgun/mailgun-php",
@@ -802,7 +801,7 @@
                 }
             ],
             "description": "The Mailgun SDK provides methods for all API functions.",
-            "time": "2018-02-01 22:58:55"
+            "time": "2018-02-01T22:58:55+00:00"
         },
         {
             "name": "moderntribe/ajax-queue",
@@ -832,7 +831,7 @@
                 "source": "https://github.com/moderntribe/ajax-queue/tree/master",
                 "issues": "https://github.com/moderntribe/ajax-queue/issues"
             },
-            "time": "2015-08-21 06:25:04"
+            "time": "2015-08-21T06:25:04+00:00"
         },
         {
             "name": "moderntribe/attachment-helper",
@@ -867,7 +866,7 @@
             "support": {
                 "source": "https://github.com/moderntribe/attachment-helper/tree/1.0.1"
             },
-            "time": "2016-04-24 20:00:57"
+            "time": "2016-04-24T20:00:57+00:00"
         },
         {
             "name": "moderntribe/panel-builder",
@@ -910,7 +909,7 @@
                 "source": "https://github.com/moderntribe/panel-builder/tree/3.3-branch",
                 "issues": "https://github.com/moderntribe/panel-builder/issues"
             },
-            "time": "2018-01-04 21:53:51"
+            "time": "2018-01-04T21:53:51+00:00"
         },
         {
             "name": "moderntribe/tribe-libs",
@@ -943,7 +942,7 @@
                 "source": "https://github.com/moderntribe/tribe-libs/tree/master",
                 "issues": "https://github.com/moderntribe/tribe-libs/issues"
             },
-            "time": "2018-01-17 19:05:36"
+            "time": "2018-01-17T19:05:36+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1021,7 +1020,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1076,7 +1075,53 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2016-12-03 22:08:25"
+            "time": "2016-12-03T22:08:25+00:00"
+        },
+        {
+            "name": "nikic/fast-route",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/FastRoute.git",
+                "reference": "181d480e08d9476e61381e04a71b34dc0432e812"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/181d480e08d9476e61381e04a71b34dc0432e812",
+                "reference": "181d480e08d9476e61381e04a71b34dc0432e812",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35|~5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FastRoute\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov",
+                    "email": "nikic@php.net"
+                }
+            ],
+            "description": "Fast request router for PHP",
+            "keywords": [
+                "router",
+                "routing"
+            ],
+            "time": "2018-02-13T20:26:39+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -1137,7 +1182,7 @@
                 "http",
                 "httplug"
             ],
-            "time": "2017-11-30 11:06:59"
+            "time": "2017-11-30T11:06:59+00:00"
         },
         {
             "name": "php-http/curl-client",
@@ -1193,7 +1238,7 @@
                 "curl",
                 "http"
             ],
-            "time": "2017-02-09 15:18:33"
+            "time": "2017-02-09T15:18:33+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -1255,7 +1300,7 @@
                 "message",
                 "psr7"
             ],
-            "time": "2018-02-06 10:55:24"
+            "time": "2018-02-06T10:55:24+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -1311,7 +1356,7 @@
                 "client",
                 "http"
             ],
-            "time": "2017-12-18 08:01:36"
+            "time": "2017-12-18T08:01:36+00:00"
         },
         {
             "name": "php-http/message",
@@ -1383,7 +1428,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2018-01-22 17:52:04"
+            "time": "2018-01-22T17:52:04+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -1433,7 +1478,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2018-01-04 12:23:13"
+            "time": "2018-01-04T12:23:13+00:00"
         },
         {
             "name": "php-http/multipart-stream-builder",
@@ -1490,7 +1535,7 @@
                 "multipart stream",
                 "stream"
             ],
-            "time": "2017-11-22 21:56:04"
+            "time": "2017-11-22T21:56:04+00:00"
         },
         {
             "name": "php-http/promise",
@@ -1540,7 +1585,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2017-11-22 21:24:54"
+            "time": "2017-11-22T21:24:54+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1590,7 +1635,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2018-02-09 15:35:40"
+            "time": "2018-02-09T15:35:40+00:00"
         },
         {
             "name": "psr/container",
@@ -1639,7 +1684,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-06-28 15:35:32"
+            "time": "2017-06-28T15:35:32+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1689,7 +1734,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -1736,7 +1781,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "sunra/php-simple-html-dom-parser",
@@ -1784,7 +1829,7 @@
                 "html",
                 "parser"
             ],
-            "time": "2016-11-22 22:57:47"
+            "time": "2016-11-22T22:57:47+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -1838,7 +1883,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2018-01-11 07:56:07"
+            "time": "2018-01-11T07:56:07+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1897,7 +1942,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-01-30 19:27:44"
+            "time": "2018-01-30T19:27:44+00:00"
         },
         {
             "name": "twig/twig",
@@ -1963,7 +2008,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-01-30 13:51:48"
+            "time": "2018-01-30T13:51:48+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2013,7 +2058,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2018-01-28 23:08:18"
+            "time": "2018-01-28T23:08:18+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -2063,7 +2108,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-01-29 19:49:41"
+            "time": "2018-01-29T19:49:41+00:00"
         },
         {
             "name": "wpackagist-plugin/configure-smtp",
@@ -2232,7 +2277,8 @@
     "stability-flags": {
         "moderntribe/panel-builder": 20,
         "humanmade/mercator": 20,
-        "pimple/pimple": 20
+        "pimple/pimple": 20,
+        "nikic/fast-route": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

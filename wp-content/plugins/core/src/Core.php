@@ -17,6 +17,7 @@ use Tribe\Project\Service_Providers\Post_Types\Page_Service_Provider;
 use Tribe\Project\Service_Providers\Post_Types\Post_Service_Provider;
 use Tribe\Project\Service_Providers\Post_Types\Sample_Service_Provider;
 use Tribe\Project\Service_Providers\Post_Types\Venue_Service_Provider;
+use Tribe\Project\Service_Providers\Redirects_Provider;
 use Tribe\Project\Service_Providers\Shortcode_Provider;
 use Tribe\Project\Service_Providers\Taxonomies\Category_Service_Provider;
 use Tribe\Project\Service_Providers\Taxonomies\Example_Taxonomy_Service_Provider;
@@ -61,6 +62,7 @@ class Core {
 		$this->container->register( new Panels_Provider() );
 		$this->container->register( new P2P_Provider() );
 		$this->container->register( new Nav_Menu_Provider() );
+		$this->container->register( new Redirects_Provider() );
 		$this->container->register( new Settings_Provider() );
 		$this->container->register( new Util_Provider() );
 		$this->container->register( new Twig_Service_Provider() );
