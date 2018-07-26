@@ -27,7 +27,7 @@ function the_panel_title( $title = null, $options = [] ) {
 
 	static $panel_title = '';
 
-	// Panel Preview AJAX calls send along an index value for determining positon.
+	// Panel Preview AJAX calls send along an index value for determining position.
 	if ( is_panel_preview() && defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		$preview_index = (integer) filter_input( INPUT_POST, 'index', FILTER_SANITIZE_NUMBER_INT );
 	} else {
