@@ -115,9 +115,10 @@ class Hero extends Panel {
 	}
 
 	protected function get_hero_title( $title_attrs ) {
+		$h_level = ( get_nest_index() === 0 ) ? 'h1' : 'h2';
 		$options = [
 			Title::CLASSES => [],
-			Title::TAG     => 'h1',
+			Title::TAG     => $h_level,
 			Title::ATTRS   => $title_attrs,
 			Title::TITLE   => $this->panel_vars[ HeroPanel::FIELD_TITLE ],
 		];

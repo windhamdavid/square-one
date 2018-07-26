@@ -34,7 +34,7 @@ function the_panel_title( $title = null, $options = [] ) {
 		$preview_index = null;
 	}
 
-	$is_first_panel = ( $preview_index === 0 || ( is_null( $preview_index ) && empty( $panel_title ) ) );
+	$is_first_panel = ( get_nest_index() === 0 || ( is_null( $preview_index ) && empty( $panel_title ) ) );
 
 	$h_level = 'h2';
 
