@@ -1,4 +1,3 @@
 dev_repo="git@github.com:moderntribe/example.git"
-deploy_repo="ssh://codeserver.dev.XXXXXXXXXXXXXXXXXXXXXXXXXXX@codeserver.dev.XXXXXXXXXXXXXXXXXXXXXXXXXXX.drush.in:2222/~/repository.git"
 slacktoken=""
 slackchannel=""
