@@ -63,11 +63,9 @@ echo "Preparing to deploy ${BRANCH} to ${ENVIRONMENT} on ${TARGET_HOST}"
 if [ -d .deploy/src ]; then
     cd .deploy/src
     ${PHP_BIN} ${COMPOSER_BIN} install
-    if [ -f .gitmodules ]; then
-        git submodule foreach git reset --hard
-        git submodule foreach git fetch --tags
-        git submodule update
-    fi
+    git submodule foreach git reset --hard
+    git submodule foreach git fetch --tags
+    git submodule update
     cd ../..
 else
     git clone $dev_repo .deploy/src
@@ -90,18 +88,16 @@ cd ../..
 if [ -d .deploy/build ]; then
     cd .deploy/build
     ${PHP_BIN} ${COMPOSER_BIN} install
-    if [ -f .gitmodules ]; then
-        git submodule foreach git reset --hard
-        git submodule foreach git fetch --tags
-        git submodule update
-    fi
+    git submodule foreach git reset --hard
+    git submodule foreach git fetch --tags
+    git submodule update
     cd ../..
 else
     git clone ${deploy_repo} .deploy/build
 fi
 
-if [ "${WP_ENGINE}" = 1 ]; then
-    GIT_SSH_COMMAND="ssh -i .wpengine/ansible_rsa -F /dev/null"
+if [ "${TARGET_HOST}" = "wpengine" ]; then
+    GIT_SSH_COMMAND="ssh -i .${TARGET_HOST}/ansible_rsa -F /dev/null"
 fi
 
 cd .deploy/build
@@ -169,6 +165,10 @@ cd .deploy/build
 # enable object caching
 if [ "${DEPLOY_OBJECT_CACHE}" = 1 ]; then
     cp wp-content/object-cache-sample.php wp-content/object-cache.php
+fi
+
+if [ "${TARGET_HOST}" = "wpengine" ]; then
+    mv .wpengine.htaccess .htaccess
 fi
 
 git add -Av
