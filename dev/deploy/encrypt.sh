@@ -11,11 +11,18 @@ fi;
 
 source ".env"
 
-ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/config/common.cfg --output=.${TARGET_HOST}/config/common.cfg.vaulted
-
-if [ "${WP_ENGINE}" = 1 ]; then
+# wp engine specific environments
+if [ "${TARGET_HOST}" = "wpengine" ]; then
     ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/config/staging.cfg --output=.${TARGET_HOST}/config/staging.cfg.vaulted
     ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/config/production.cfg --output=.${TARGET_HOST}/config/production.cfg.vaulted
-    ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/ansible_rsa --output=.${TARGET_HOST}/ansible_rsa.vaulted
-    ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/ansible_rsa_password --output=.${TARGET_HOST}/ansible_rsa_password.vaulted
 fi
+
+# pantheon specific environments
+if [ "${TARGET_HOST}" = "pantheon" ]; then
+    ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/config/dev.cfg --output=.${TARGET_HOST}/config/dev.cfg.vaulted
+fi
+
+# common across all hosts
+ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/config/common.cfg --output=.${TARGET_HOST}/config/common.cfg.vaulted
+ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/ansible_rsa --output=.${TARGET_HOST}/ansible_rsa.vaulted
+ansible-vault --vault-password-file=.vaultpass encrypt .${TARGET_HOST}/ansible_rsa_password --output=.${TARGET_HOST}/ansible_rsa_password.vaulted
