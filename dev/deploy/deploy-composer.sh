@@ -46,17 +46,15 @@ if [ ! -f ".${TARGET_HOST}/config/common.cfg" ]; then
     exit 1
 fi
 
-# all hosts will have a common.cfg
+# read config files
 source ".${TARGET_HOST}/config/common.cfg"
 
-# only wp engine will let us deploy to different environments
-if [ "${WP_ENGINE}" = 1 ]; then
-    if [ ! -f ".${TARGET_HOST}/config/${ENVIRONMENT}.cfg" ]; then
-        echo "Unknown environment for ${TARGET_HOST}: ${ENVIRONMENT}"
-        exit 1
-    fi
-    source ".${TARGET_HOST}/config/${ENVIRONMENT}.cfg"
+if [ ! -f ".${TARGET_HOST}/config/${ENVIRONMENT}.cfg" ]; then
+    echo "Unknown environment for ${TARGET_HOST}: ${ENVIRONMENT}"
+    exit 1
 fi
+
+source ".${TARGET_HOST}/config/${ENVIRONMENT}.cfg"
 
 DEPLOY_TIMESTAMP=`date +%Y%m%d%H%M%S`
 
