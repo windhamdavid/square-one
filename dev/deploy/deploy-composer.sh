@@ -62,7 +62,7 @@ echo "Preparing to deploy ${BRANCH} to ${ENVIRONMENT} on ${TARGET_HOST}"
 
 if [ -d .deploy/src ]; then
     cd .deploy/src
-    ${PHP_BIN} ${COMPOSER_BIN} install
+    ${PHP_BIN} ${COMPOSER_BIN} install --no-dev --optimize-autoloader
     git submodule foreach git reset --hard
     git submodule foreach git fetch --tags
     git submodule update
@@ -75,7 +75,7 @@ cd .deploy/src
 git reset --hard HEAD
 git checkout ${BRANCH}
 git pull origin ${BRANCH}
-${PHP_BIN} ${COMPOSER_BIN} install
+${PHP_BIN} ${COMPOSER_BIN} install --no-dev --optimize-autoloader
 git submodule update --init --recursive
 commit_hash=$(git rev-parse HEAD)
 
