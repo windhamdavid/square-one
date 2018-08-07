@@ -9,7 +9,7 @@ Author URI:  http://www.tri.be
 
 $autoload = ABSPATH . '../vendor/autoload.php';
 
-if( false === stream_resolve_include_path( $autoload ) ) {
+if( false === is_readable( $autoload ) ) {
 	$autoload = ABSPATH . '/vendor/autoload.php';
 }
 
