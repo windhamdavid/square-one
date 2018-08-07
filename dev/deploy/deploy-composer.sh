@@ -174,7 +174,7 @@ fi
 git add -Av
 
 if [ ${FORCEYES} == false ]; then
-    read -p "Ready to deploy ${BRANCH} to ${ENVIRONMENT}. Have you made a backup? [Y/n] " yn
+    read -p "Ready to deploy ${BRANCH} to ${ENVIRONMENT} on ${TARGET_HOST}. Have you made a backup? [Y/n] " yn
     case $yn in
         [Yy]* ) ;;
         [Nn]* ) exit;;
@@ -183,7 +183,7 @@ if [ ${FORCEYES} == false ]; then
 fi
 
 git commit --allow-empty -m "Deployment ${DEPLOY_TIMESTAMP}"
-echo "pushing ${BRANCH} to ${TARGET_HOST}"
+echo "pushing ${BRANCH} to ${ENVIRONMENT} on ${TARGET_HOST}"
 git push ${ENVIRONMENT} master
 
 if [ -z "$slackchannel" ] || [ -z "$slacktoken" ]; then
