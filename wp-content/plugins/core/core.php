@@ -7,7 +7,13 @@ Version:     1.0
 Author URI:  http://www.tri.be
 */
 
-require_once ABSPATH . '../vendor/autoload.php';
+$autoload = ABSPATH . '../vendor/autoload.php';
+
+if( false === stream_resolve_include_path( $autoload ) ) {
+	$autoload = ABSPATH . 'vendor/autoload.php';
+}
+
+require_once $autoload;
 require_once trailingslashit( __DIR__ ) . 'functions/pluggable.php';
 
 // Start the core plugin
