@@ -87,7 +87,7 @@ cd ../..
 
 if [ -d .deploy/build ]; then
     cd .deploy/build
-    ${PHP_BIN} ${COMPOSER_BIN} install
+    ${PHP_BIN} ${COMPOSER_BIN} install --no-dev --optimize-autoloader
     git submodule foreach git reset --hard
     git submodule foreach git fetch --tags
     git submodule update
