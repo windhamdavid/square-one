@@ -127,6 +127,7 @@ rsync -rp --delete .deploy/src/wp/ .deploy/build \
     --exclude=.gitmodules \
     --exclude=.gitignore \
     --exclude=.htaccess \
+    --exclude=vendor \
     --exclude=wp-config.php \
     --exclude=pantheon.yml \
     --exclude=wp-content
