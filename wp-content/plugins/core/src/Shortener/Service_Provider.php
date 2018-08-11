@@ -7,8 +7,9 @@ use Tribe\Project\Shortener\Post_Type\Provider;
 
 class Service_Provider implements \Pimple\ServiceProviderInterface {
 
-	const DATABASE  = 'shortener.database';
-	const SHORTENER = 'shortener.shortener';
+	const DATABASE   = 'shortener.database';
+	const SHORTENER  = 'shortener.shortener';
+	const REDIRECTOR = 'shortener.redirector';
 
 	public function register( Container $container ) {
 		if ( ! is_multisite() ) {
@@ -23,6 +24,10 @@ class Service_Provider implements \Pimple\ServiceProviderInterface {
 			return new Shortener( $container[ self::DATABASE ] );
 		};
 
+		$container[ self::REDIRECTOR ] = function () use ( $container ) {
+			return new Redirector( $container[ self::DATABASE ] );
+		};
+
 		// Create the table if it doesn't exist.
 		add_action( 'admin_init', function () use ( $container ) {
 			if ( $container[ self::DATABASE ]->update_required() ) {
@@ -33,9 +38,13 @@ class Service_Provider implements \Pimple\ServiceProviderInterface {
 		// Register the table.
 		add_action( 'init', function () use ( $container ) {
 			$container[ self::DATABASE ]->register();
-
-			$container[ self::SHORTENER ]->shorten( 'https://tri.be/?' . mt_rand() );
 		} );
+
+		if ( get_current_blog_id() === constant( 'URL_SHORTENER_SITE_ID' ) ) {
+			add_action( 'template_redirect', function () use ( $container ) {
+				$container[ self::REDIRECTOR ]->redirect();
+			} );
+		}
 
 	}
 }

@@ -82,7 +82,8 @@ class Database extends Schema {
 
 		return $wpdb->get_var( $wpdb->prepare(
 			"SELECT url FROM {$this->table_name()} WHERE id = %s"
-		), $id );
+			, $id )
+		);
 	}
 
 }
