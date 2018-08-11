@@ -3,7 +3,6 @@
 namespace Tribe\Project\Shortener;
 
 use Pimple\Container;
-use Tribe\Project\Shortener\Post_Type\Provider;
 
 class Service_Provider implements \Pimple\ServiceProviderInterface {
 
@@ -40,7 +39,7 @@ class Service_Provider implements \Pimple\ServiceProviderInterface {
 			$container[ self::DATABASE ]->register();
 		} );
 
-		if ( get_current_blog_id() === constant( 'URL_SHORTENER_SITE_ID' ) ) {
+		if ( get_current_blog_id() === apply_filters( 'tribe/shortener/blog-id', constant( 'URL_SHORTENER_SITE_ID' ) ) ) {
 			add_action( 'template_redirect', function () use ( $container ) {
 				$container[ self::REDIRECTOR ]->redirect();
 			} );
@@ -48,10 +47,3 @@ class Service_Provider implements \Pimple\ServiceProviderInterface {
 
 	}
 }
-
-/**
- * Endpoints
- * - Create (restricted to whitelisted domains? Verify a url is not already shortened?)
- * - Update
- * - Delete
- */

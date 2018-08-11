@@ -24,7 +24,7 @@ class Redirector {
 			exit;
 		}
 
-		wp_redirect( constant( 'URL_SHORTENER_NO_REDIRECT_FOUND' ) );
+		wp_redirect( apply_filters( 'tribe/shortener/no-redirect-found', constant( 'URL_SHORTENER_NO_REDIRECT_FOUND' ) ) );
 		exit;
 	}
 
