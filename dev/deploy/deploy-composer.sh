@@ -196,7 +196,7 @@ git push ${ENVIRONMENT} master
 if [ -z "$slackchannel" ] || [ -z "$slacktoken" ]; then
     echo "Skipping slack notification"
 else
-    curl -F channel="$slackchannel" -F token="$slacktoken" -F text="Finished deploying \`${BRANCH}\` to ${TARGET_HOST_READABLE}" -F username="Deployment Bot" -F link_names=1 https://slack.com/api/chat.postMessage
+    curl -F channel="$slackchannel" -F token="$slacktoken" -F text="Finished deploying \`${BRANCH}\` to ${ENVIRONMENT} on ${TARGET_HOST_READABLE}" -F username="Deployment Bot" -F link_names=1 https://slack.com/api/chat.postMessage
     echo
 fi
 
