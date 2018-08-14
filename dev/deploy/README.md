@@ -13,8 +13,9 @@ errors once deployed.
 
 ## Decrypting necessary files
 
-We're not using Ansible for the deploy, but using vault for some files.  Create your `.vaultpass` file. You can find the vault key in [1password.
-](https://my.1password.com/vaults/evhlch44byup67f3cli36xdb3m/allitems/pre46e747lan7hlfm32mdu336u)
+We're not using Ansible for the deploy, but using vault for some files.  Create your `.vaultpass` file. You can find the vault key in [1password
+](https://my.1password.com/vaults/evhlch44byup67f3cli36xdb3m/allitems/pre46e747lan7hlfm32mdu336u): _General Systems > Square one deploy ansible vault password_
+
 ```
 echo "[ vault key ]" > .vaultpass
 ```
@@ -78,7 +79,7 @@ You can also run this script forcing a "yes" answer to any questions:
 
 We're not using Ansible for the deploy, but using vault for some files. Create your .vaultpass file. 
 You can find the vault key in [1password.
-](https://my.1password.com/vaults/evhlch44byup67f3cli36xdb3m/allitems/pre46e747lan7hlfm32mdu336u)
+](https://my.1password.com/vaults/evhlch44byup67f3cli36xdb3m/allitems/pre46e747lan7hlfm32mdu336u): _General Systems > Square one deploy ansible vault password_
 
 ```
 echo "[ vault key ]" > .vaultpass
