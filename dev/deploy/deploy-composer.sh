@@ -30,6 +30,11 @@ else
     exit 1
 fi
 
+# need to load NVM's path for OSX
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	source $(brew --prefix nvm)/nvm.sh
+fi;
+
 while getopts "b:y" opt; do
     case "$opt" in
         b)
@@ -82,6 +87,7 @@ commit_hash=$(git rev-parse HEAD)
 echo "Building front-end assets... this could take a while"
 
 yarn install
+nvm use $(cat ./.nvmrc)
 grunt build dist
 cd ../..
 
