@@ -2,11 +2,14 @@
 
 ## Copy and edit .env.sample file
 
-Make sure you fill out the proper paths to PHP/Composer binaries in the .env file to match the production server.
 
 ```
 cp .env.sample .env
 ```
+
+Edit your .env file and ensure your local paths to the PHP and composer binaries will match the version on the server
+you're deploying to. E.g. if you run `composer install` with PHP 7.2 and the server is running PHP 7.0, you'll get
+errors once deployed.
 
 ## Decrypting necessary files
 
