@@ -1,43 +1,81 @@
 # Deploy Instructions
 
+## Copy and edit .env.sample file
+
+Make sure you fill out the proper paths to PHP/Composer binaries in the .env file to match the production server.
+
+```
+cp .env.sample .env
+```
+
 ## Decrypting necessary files
 
-We're not using Ansible for the deploy, but using vault for some files.  Create your `.vaultpass` file.  You can find the vault key at https://central.tri.be/projects/systems/wiki/Hosting_Info#Ansible-Vault-Key:
-
+We're not using Ansible for the deploy, but using vault for some files.  Create your `.vaultpass` file. You can find the vault key in [1password.
+](https://my.1password.com/vaults/evhlch44byup67f3cli36xdb3m/allitems/pre46e747lan7hlfm32mdu336u)
 ```
 echo "[ vault key ]" > .vaultpass
 ```
 
 ```
-ansible-vault --vault-password-file=.vaultpass decrypt .wpengine/ansible_rsa.vaulted --output=.wpengine/ansible_rsa
-ansible-vault --vault-password-file=.vaultpass decrypt .wpengine/ansible_rsa_password.vaulted --output=.wpengine/ansible_rsa_password
-ansible-vault --vault-password-file=.vaultpass decrypt .wpengine/config/staging.cfg.vaulted --output=.wpengine/config/staging.cfg
-ansible-vault --vault-password-file=.vaultpass decrypt .wpengine/config/production.cfg.vaulted --output=.wpengine/config/production.cfg
+./decrypt.sh
 ```
+# Wp Engine
 
-## Run a deploy
+## Prerequisites
+
+1. [You'll need to setup your specific environments, e.g. staging](https://wpengine.com/support/staging-development-environments-wp-engine/)
+2. [Add your SSH Key for git deployments](https://wpengine.com/support/set-git-push-user-portal/)
+
+# Pantheon
+
+## Prerequisites
+
+1. [Enable git connection mode on Pantheon](https://pantheon.io/docs/guides/quickstart/connection-modes/) 
+2. [Add your pub ssh key to Pantheon](https://pantheon.io/docs/ssh-keys/)
+
+# Run a Deploy
 
 ```
-./deploy.sh [staging|production]
+./deploy-composer.sh [staging|production]
 ```
 
 You can optionally specify a branch name (defaults to server/staging or server/production, as appropriate). E.g.:
 
 ```
-./deploy.sh staging -b sprint/1
+./deploy-composer.sh staging -b sprint/1
 ```
 
 You can also run this script forcing a "yes" answer to any questions:
 
 ```
-./deploy.sh staging -b sprint/1 -y
+./deploy-composer.sh staging -b sprint/1 -y
 ```
 
-This will ask you for an ssh key passphrase that most platforms can save after entering it the first time.  You can find the passphrase in `.wpengine/ansible_rsa_password`.
+### Pantheon Specific Instructions
+Note Pantheon doesn't allow code deploys to various environments so you're always deploying code to dev. test and live are code locked. Make sure you deploy to the `dev` branch.
 
-# Setup Instructions
+```
+./deploy-composer.sh dev
+```
 
-We're not using Ansible for the deploy, but using vault for some files.  Create your `.vaultpass` file.  You can find the vault key at https://central.tri.be/projects/systems/wiki/Hosting_Info#Ansible-Vault-Key:
+You can optionally specify a branch name. E.g.:
+
+```
+./deploy-composer.sh dev -b sprint/1
+```
+
+You can also run this script forcing a "yes" answer to any questions:
+
+```
+./deploy-composer.sh dev -b sprint/1 -y
+```
+
+## Setup Instructions
+
+
+We're not using Ansible for the deploy, but using vault for some files. Create your .vaultpass file. 
+You can find the vault key in [1password.
+](https://my.1password.com/vaults/evhlch44byup67f3cli36xdb3m/allitems/pre46e747lan7hlfm32mdu336u)
 
 ```
 echo "[ vault key ]" > .vaultpass
@@ -47,3 +85,7 @@ echo "[ vault key ]" > .vaultpass
 * Edit the production and staging config files in `.wpengine/config`.
 * Run `encrypt.sh` to re-encrypt those files after you edit them.
 * Give the ssh key from `.wpengine/ansible_rsa.pub` access to push to the WP Engine git repo.
+
+## Notes
+
+This script supports both composer and sub module based square-one installs
