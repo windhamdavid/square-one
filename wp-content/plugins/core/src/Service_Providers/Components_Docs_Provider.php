@@ -136,8 +136,6 @@ class Components_Docs_Provider implements ServiceProviderInterface {
 			$container['components_docs.assets']->enqueue_styles();
 		}, 10, 0 );
 
-		add_action( 'init', [ $this, 'bootstrap_panels_ui' ], 0, 0 );
-
 		$container['panels.metabox'] = function ( $container ) {
 			return new MetaBox();
 		};
