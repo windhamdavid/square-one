@@ -2,7 +2,12 @@
 
 namespace Tribe\Project\Components_Docs;
 
+use ModularContent\AdminPreCache;
+use ModularContent\Blueprint_Builder;
 use ModularContent\Panel;
+use ModularContent\PanelCollection;
+use ModularContent\Plugin;
+use ModularContent\Util;
 use Tribe\Project\Components_Docs\Templates\Preview_Wrapper;
 use Tribe\Project\Templates\Components\Component;
 
@@ -86,6 +91,59 @@ class Panel_Item extends Item {
 		}
 
 		return file_get_contents( $twig_template );
+	}
+
+	public function get_panel_ui_preview() {
+		$post     = get_post( 2 );
+		$filtered = $post->post_content_filtered;
+		$decoded  = json_decode( $filtered, true );
+		$title    = $this->panel->get( 'title' );
+
+		$decoded['panels'] = array_filter( $decoded['panels'], function ( $panel ) use ( $title ) {
+			return $panel['data']['title'] === $title;
+		} );
+
+		$collection = PanelCollection::create_from_json( json_encode( $decoded ) );
+
+		ob_start();
+		$this->render_panel_ui( $collection );
+
+		$box = ob_get_clean();
+
+		return sprintf( '  <input type="hidden" id="title" value="foobar">
+		            <input type="hidden" id="post_ID" value="foobar">
+		            <div class="inside">
+		                %s
+		            </div>', $box );
+	}
+
+	private function render_panel_ui( $collection ) {
+
+		$registry  = Plugin::instance()->registry();
+		$blueprint = new Blueprint_Builder( $registry );
+		$cache     = new AdminPreCache();
+		foreach ( $collection->panels() as $panel ) {
+			$panel->update_admin_cache( $cache );
+		}
+		$localization = [
+			'delete_this_panel' => __( 'Are you sure you want to delete this?', 'modular-content' ),
+			'save_gallery'      => __( 'Save Gallery', 'modular-content' ),
+			'untitled'          => __( 'Untitled', 'modular-content' ),
+			'loading'           => __( 'Loading...', 'modular-content' ),
+		];
+
+		$meta_box_data = [
+			'blueprint'    => $blueprint,
+			'cache'        => $cache,
+			'localization' => $localization,
+			'panels'       => $collection->build_tree(),
+			'preview_url'  => '',
+		];
+
+		$meta_box_data       = apply_filters( 'modular_content_metabox_data', $meta_box_data, $post );
+		$json_encoded_panels = Util::json_encode( $collection );
+
+		include( Plugin::plugin_path( 'admin-views/meta-box-panels.php' ) );
 	}
 
 	public function get_rendered_template( $options = [] ): string {

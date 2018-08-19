@@ -92,6 +92,16 @@ class Component_Docs extends Twig_Template {
 			];
 		}
 
+		if ( is_a( $item, Panel_Item::class ) ) {
+			$panel_ui_preview = $item->get_panel_ui_preview();
+			$rows[]           = [
+				'content'     => $panel_ui_preview,
+				'header_text' => 'Panel UI Preview',
+				'content_id'  => 'panel_ui_preview',
+				'header_id'   => 'panel_ui_preview',
+			];
+		}
+
 		if ( is_user_logged_in() ) {
 			$preview_body = is_a( $item, Panel_Item::class ) ? $this->get_panel_preview( $rendered ) : $this->get_component_preview( $item, $constants, $rendered );
 
@@ -118,7 +128,7 @@ class Component_Docs extends Twig_Template {
 	}
 
 	protected function get_component_preview( Item $item, array $constants, string $rendered ) {
-		$constants    = Constants::factory( [ Constants::CONSTANTS => $constants, Constants::ITEM_CLASS => $item->get_slug() ] );
+		$constants = Constants::factory( [ Constants::CONSTANTS => $constants, Constants::ITEM_CLASS => $item->get_slug() ] );
 		return $constants->render() . $rendered;
 	}
 }
