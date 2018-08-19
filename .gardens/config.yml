@@ -1,4 +1,4 @@
-alias: sq1
+alias: sq1-components-docs
 scripts:
   # block of commands to build this repo/branch on the CI server for deploying
   build: |
