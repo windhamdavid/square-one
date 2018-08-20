@@ -6,6 +6,7 @@
 import embeds from './embeds';
 import forms from './forms';
 import socialShare from './social-share';
+import panelSpacing from './panel-spacing';
 
 /**
  * @function init
@@ -18,6 +19,8 @@ const init = () => {
 	forms();
 
 	socialShare();
+
+	panelSpacing();
 };
 
 export default init;

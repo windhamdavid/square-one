@@ -1,0 +1,13 @@
+<div class="panel-spacer" data-js="panel-spacer">
+    <div class="panel-spacer__inner">
+        <select name="spacer-vars" id="spacer-vars">
+            <option value="">Choose Spacer Var</option>
+            {% for label, value in vars %}
+                <option value="{{ label }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        --or--
+        <input type="text" name="spacer-custom">px
+    </div>
+    <div class="panel-spacer__icon"></div>
+</div>

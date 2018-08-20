@@ -52,6 +52,7 @@
     "lazysizes": "^4.0.1",
     "load-grunt-tasks": "^3.5.2",
     "lodash": "^4.17.2",
+    "pretty-data": "^0.40.0",
     "spin.js": "^2.3.2",
     "swiper": "^4.1.0",
     "tota11y": "0.1.6",
