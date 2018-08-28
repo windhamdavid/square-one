@@ -33,6 +33,8 @@ fi
 # need to load NVM's path for OSX
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	source $(brew --prefix nvm)/nvm.sh
+else
+    source $HOME/.nvm/nvm.sh
 fi;
 
 while getopts "b:y" opt; do
