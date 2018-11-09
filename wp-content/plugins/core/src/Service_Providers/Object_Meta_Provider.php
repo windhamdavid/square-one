@@ -8,9 +8,11 @@ use Tribe\Libs\Object_Meta\Meta_Repository;
 use Tribe\Project\Object_Meta\Example;
 use Tribe\Project\Object_Meta\Analytics_Settings;
 use Tribe\Project\Object_Meta\Social_Settings;
+use Tribe\Project\Object_Meta\Widgets\Recent_Posts;
 use Tribe\Project\Post_Types;
 use Tribe\Project\Settings;
 use Tribe\Project\Taxonomies;
+use Tribe\Project\Widgets;
 
 class Object_Meta_Provider implements ServiceProviderInterface {
 
@@ -18,16 +20,19 @@ class Object_Meta_Provider implements ServiceProviderInterface {
 	const EXAMPLE            = 'object_meta.example';
 	const ANALYTICS_SETTINGS = 'object_meta.analytics_settings';
 	const SOCIAL_SETTINGS    = 'object_meta.social_settings';
+	const RECENT_POSTS_META  = 'object_meta.recent_posts_meta';
 
 	private $keys = [
 		self::EXAMPLE,
 		self::ANALYTICS_SETTINGS,
 		self::SOCIAL_SETTINGS,
+		self::RECENT_POSTS_META,
 	];
 
 	public function register( Container $container ) {
 		$this->example( $container );
 		$this->site_settings( $container );
+		$this->widgets( $container );
 
 		$container[ self::REPO ] = function ( Container $container ) {
 			$meta_repo = array_map( function ( $key ) use ( $container ) {
@@ -69,6 +74,14 @@ class Object_Meta_Provider implements ServiceProviderInterface {
 		$container[ self::ANALYTICS_SETTINGS ] = function ( Container $container ) {
 			return new Analytics_Settings( [
 				'settings_pages' => [ Settings\General::instance()->get_slug() ],
+			] );
+		};
+	}
+
+	private function widgets( Container $container ) {
+		$container[ self::RECENT_POSTS_META ] = function ( Container $container ) {
+			return new Recent_Posts( [
+				'widget' => [ Widgets\Recent_Posts::SLUG ],
 			] );
 		};
 	}
