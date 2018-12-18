@@ -6,7 +6,7 @@ use Tribe\Project\Templates\Content\Widgets\Recent_Posts as Template;
 
 class Recent_Posts extends Widget {
 
-	const SLUG = 'cti_recent_posts';
+	const SLUG = 'tribe_recent_posts';
 
 	public function get_slug() {
 		return self::SLUG;
