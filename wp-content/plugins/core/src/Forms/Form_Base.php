@@ -4,9 +4,7 @@ namespace Tribe\Project\Forms;
 use Tribe\Project\Forms\Config\Form_Config;
 
 abstract class Form_Base {
-
-	//const NAME = self::NAME;
-
+	
 	/**
 	 * Stores the form ID, on creation, in the options table
 	 *
