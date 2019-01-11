@@ -54,7 +54,7 @@ class Example_Form extends Form_Base implements Form_Config {
 	 */
 	private function get_name_field(): array {
 		$field = new Text( $this->get_form_id() );
-		
+
 		return $field->set_attributes( self::FIELD_FULL_NAME, [
 			'label'        => esc_html__( 'Full Name', 'tribe' ),
 			'isRequired'   => true,
