@@ -6,168 +6,168 @@ class Defaults {
 	/**
 	 * @var string
 	 */
-	private $label = '';
+	public $label = '';
 
 	/**
 	 * @var string
 	 */
-	private $admin_label = '';
+	public $adminLabel = '';
 
 	/**
 	 * @var boolean
 	 */
-	private $is_required = false;
+	public $isRequired = false;
 
 	/**
 	 * @var string
 	 */
-	private $size = 'medium';
+	public $size = 'medium';
 
 	/**
 	 * @var string
 	 */
-	private $error_message = '';
+	public $errorMessage = '';
 
 	/**
 	 * @var array|null
 	 */
-	private $inputs = null;
+	public $inputs = null;
 
 	/**
 	 * @var string
 	 */
-	private $description = '';
+	public $description = '';
 
 	/**
 	 * @var boolean
 	 */
-	private $allow_prepopulate = false;
+	public $allowPrepopulate = false;
 
 	/**
 	 * @var string
 	 */
-	private $input_mask = '';
+	public $inputMask = '';
 
 	/**
 	 * @var string
 	 */
-	private $input_mask_value = '';
+	public $inputMaskValue = '';
 
 	/**
 	 * @var string
 	 */
-	private $input_type = '';
+	public $inputType = '';
 
 	/**
 	 * @var string
 	 */
-	private $label_placement = '';
+	public $labelPlacement = '';
 
 	/**
 	 * @var string
 	 */
-	private $description_placement = 'below';
+	public $descriptionPlacement = 'below';
 
 	/**
 	 * @var string
 	 */
-	private $sublabel_placement = '';
+	public $sublabelPlacement = '';
 
 	/**
 	 * @var string
 	 */
-	private $placeholder = '';
+	public $placeholder = '';
 
 	/**
 	 * @var string
 	 */
-	private $css_class = '';
+	public $cssClass = '';
 
 	/**
 	 * @var string
 	 */
-	private $input_name = '';
+	public $inputName = '';
 
 	/**
 	 * @var string
 	 */
-	private $visibility = 'visible';
+	public $visibility = 'visible';
 
 	/**
 	 * @var boolean
 	 */
-	private $no_duplicates = false;
+	public $noDuplicates = false;
 
 	/**
 	 * @var string
 	 */
-	private $default_value = '';
+	public $defaultValue = '';
 
 	/**
 	 * @var array|string
 	 */
-	private $choices = [];
+	public $choices = [];
 
 	/**
 	 * @var array|string
 	 */
-	private $conditional_logic = '';
+	public $conditionalLogic = '';
 
 	/**
 	 * @var boolean
 	 */
-	private $enable_password_input = false;
+	public $enablePasswordInput = false;
 
 	/**
 	 * @var int
 	 */
-	private $max_length = '';
+	public $maxLength = '';
 
 	/**
 	 * @var boolean
 	 */
-	private $multiple_files = false;
+	public $multipleFiles = false;
 
 	/**
 	 * @var int
 	 */
-	private $max_files = 1;
+	public $maxFiles = 1;
 
 	/**
 	 * @var string
 	 */
-	private $calculation_formula = '';
+	public $calculationFormula = '';
 
 	/**
 	 * @var boolean
 	 */
-	private $calculation_rounding = false;
+	public $calculationRounding = false;
 
 	/**
 	 * @var boolean
 	 */
-	private $enable_calculation = false;
+	public $enableCalculation = false;
 
 	/**
 	 * @var boolean
 	 */
-	private $disable_quantity = false;
+	public $disableQuantity = false;
 
 	/**
 	 * @var boolean
 	 */
-	private $display_all_categories = false;
+	public $displayAllCategories = false;
 
 	/**
 	 * @var boolean
 	 */
-	private $use_rich_text_editor = false;
+	public $useRichTextEditor = false;
 
 	public function get_attribute( $name ) {
 		return $this->$name;
 	}
 
 	public function set_attribute( string $name, $value ) {
-		$this->$name = $value;
+		$this->{$name} = $value;
 	}
 }

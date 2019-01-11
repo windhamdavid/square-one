@@ -3,14 +3,13 @@ namespace Tribe\Project\Forms\Fields;
 
 abstract class Field {
 
-	protected $type;
+	protected $type = null;
 
 	protected $form_id;
 
 	protected $atts;
 
 	public function __construct( int $form_id ) {
-		$this->type = null;
 		$this->form_id = $form_id;
 		$this->atts = new Defaults();
 	}
@@ -18,13 +17,12 @@ abstract class Field {
 	/**
 	 * @param float $field_id
 	 * @param array $args
-	 *
-	 * @throws \Exception
+	 **
+	 * @return array|\WP_Error
 	 */
 	public function set_attributes( float $field_id, array $args = [] ) {
-
 		if( empty( $this->type ) ) {
-			throw new \Exception( __( 'Form type cannot be empty.', 'tribe' ) );
+			return new \WP_Error( 'form-type-empty', __( 'Form type cannot be empty.', 'tribe' ) );
 		}
 
 		$this->atts->set_attribute( 'id', $field_id );
@@ -32,11 +30,13 @@ abstract class Field {
 		$this->atts->set_attribute( 'formId', $this->form_id );
 
 		foreach( $args as $key => $arg ) {
-			if( ! property_exists( '\\Tribe\\Project\\Forms\\Fields\\Defaults', $key ) ) {
-				throw new \Exception( sprintf( __( 'Unable to set %s as it is not a valid property.', 'tribe' ), esc_html( $key ) ) );
+			if( ! property_exists( $this->atts, $key ) ) {
+				return new \WP_Error( 'form-invalid-property', sprintf( __( 'Unable to set %s as it is not a valid property.', 'tribe' ), esc_html( $key ) ) );
 			}
 
 			$this->atts->set_attribute( $key, $arg );
 		}
+
+		return (array) $this->atts;
 	}
 }

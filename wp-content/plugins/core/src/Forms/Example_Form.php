@@ -3,8 +3,9 @@
 namespace Tribe\Project\Forms;
 
 use Tribe\Project\Forms\Config\Form_Config;
+use Tribe\Project\Forms\Fields\Text;
 
-class Example_Form implements Form_Config {
+class Example_Form extends Form_Base implements Form_Config {
 	const NAME = 'example-form';
 
 	const FIELD_FULL_NAME = 1;
@@ -48,20 +49,20 @@ class Example_Form implements Form_Config {
 	 * an individual field's configuration.
 	 *
 	 * Also note that the `id` parameter must be a unique number.
-	 *
+	 **
 	 * @return array
 	 */
 	private function get_name_field(): array {
-		return [
-			'type'         => 'text',
-			'id'           => self::FIELD_FULL_NAME,
+		$field = new Text( $this->get_form_id() );
+		
+		return $field->set_attributes( self::FIELD_FULL_NAME, [
 			'label'        => esc_html__( 'Full Name', 'tribe' ),
 			'isRequired'   => true,
 			'size'         => 'medium',
 			'errorMessage' => esc_html__( 'Invalid Data', 'tribe' ),
 			'cssClass'     => 'example-form-full-name',
 			'placeholder'  => esc_attr__( 'Full Name', 'tribe ' ),
-		];
+		] );
 	}
 
 	/**

@@ -4,6 +4,7 @@ namespace Tribe\Project\Service_Providers;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Tribe\Project\Forms\Config\Form_Config;
 use Tribe\Project\Forms\Config\Form_Override;
 use Tribe\Project\Forms\Example_Form;
 
@@ -85,5 +86,9 @@ class Forms_Provider implements ServiceProviderInterface {
 		add_action( 'gform_pre_submission', function ( array $form ) use ( $container ) {
 			$container[ self::EXAMPLE_FORM ]->handle_submission( $form );
 		} );
+
+		add_action( 'tribe/forms/created', function( int $form_id, Form_Config $form_config ) use ( $container ) {
+			$container[ self::EXAMPLE_FORM ]->set_form_id_option( $form_id, $form_config );
+		}, 10, 2 );
 	}
 }
