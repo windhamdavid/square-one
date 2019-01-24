@@ -45,7 +45,6 @@ class Gravity_Forms_FilterTest extends \Codeception\Test\Unit {
 		} );
 
 		$choice_markup = '<li>Choice</li>';
-		$expected      = '<li>Choice<label for="choice_99_88_1" class="gf-radio-checkbox-other-placeholder"><span class="a11y-visual-hide">Other</span></label></li>';
 		$field         = [
 			'formId'  => 99,
 			'id'      => 88,
