@@ -109,6 +109,7 @@
   },
   "require-dev": {
     "wp-cli/wp-cli": "^2.2.0",
+    "phpunit/phpunit": "^6.0",
     "lucatume/wp-browser": "^2.2.14",
     "lucatume/function-mocker": "~1.0",
     "php-http/httplug": "^1.1",

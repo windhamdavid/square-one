@@ -24,10 +24,8 @@ modules:
             cleanup: false
             url: '%WP_URL%'
             tablePrefix: %TABLE_PREFIX%
-            urlReplacement: false
+            urlReplacement: true
             waitlock: 5
-            # this can sometimes be faster for importing if the mysql client is available
-            populator: 'mysql --max_allowed_packet=512M -u $user -h $host -p$password $dbname < $dump'
         WPLoader:
             # just load WordPress using the same db as WPDb
             loadOnly: true
