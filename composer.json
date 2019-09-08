@@ -26,6 +26,10 @@
     {
       "type":"vcs",
       "url":"https://github.com/moderntribe/gutenpanels.git"
+    },
+    {
+      "type":"vcs",
+      "url":"https://github.com/WordPress/gutenberg.git"
     }
   ],
   "require": {
@@ -67,7 +71,9 @@
     "lucatume/wp-browser": "^2.2.14",
     "lucatume/function-mocker": "~1.0",
     "php-http/httplug": "^1.1",
-    "filp/whoops": "^2.2@dev"
+    "filp/whoops": "^2.2@dev",
+    "wordpress/gutenberg": "dev-master",
+    "mockery/mockery": "^1.2"
   },
   "extra": {
     "wordpress-install-dir": "wp",
@@ -87,7 +93,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tribe\\Tests\\": "dev/tests/tests/_support/Classes/"
+      "Tribe\\Tests\\": "dev/tests/tests/_support/Classes/",
+      "Tribe\\Gutenpanels\\Tests\\": "wp-content/plugins/gutenpanels/tests/_support"
     }
   }
 }
