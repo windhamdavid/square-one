@@ -13,10 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Show files
-          run: |
-            ls -la
-
       - name: Composer Install
         run: |
           printf '{ "github-oauth": { "github.com": "%s" } }\n' "${{ secrets.GH_CI_TOKEN }}" >> /root/.composer/auth.json
