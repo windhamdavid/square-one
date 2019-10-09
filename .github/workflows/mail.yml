@@ -16,6 +16,7 @@ jobs:
       - name: Composer Install
         run: |
           printf '{ "github-oauth": { "github.com": "%s" } }\n' "${{ secrets.GH_CI_TOKEN }}" >> composer-config.json
+          cat composer-config.json
           composer install --ignore-platform-reqs --no-dev --optimize-autoloader
         env:
           WP_PLUGIN_ACF_KEY: ${{ secrets.WP_PLUGIN_ACF_KEY }}
