@@ -1,0 +1,27 @@
+name: SquareOne CI
+
+on:
+  push:
+    branches:
+      - feature/ghactions
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Composer Install
+        run: composer install --ignore-platform-reqs --no-dev --optimize-autoloader
+
+      - name: Yarn install
+        run: |
+          nvm use
+          cp local-config-sample.json local-config.json
+          yarn install
+
+      - name: Gulp Build
+        run: |
+          npm install -g gulp-cli
+          gulp dist
