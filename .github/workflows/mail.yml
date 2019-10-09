@@ -13,9 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Show files
+          run: |
+            ls -la
+
       - name: Composer Install
         run: |
-          printf '{ "github-oauth": { "github.com": "%s" } }\n' "${{ secrets.GH_CI_TOKEN }}" >> COMPOSER_HOME/auth.json
+          printf '{ "github-oauth": { "github.com": "%s" } }\n' "${{ secrets.GH_CI_TOKEN }}" >> /root/.composer/auth.json
           echo COMPOSER_HOME
           composer install --ignore-platform-reqs --no-dev --optimize-autoloader
         env:
