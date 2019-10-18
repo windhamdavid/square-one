@@ -30,6 +30,36 @@
     {
       "type":"vcs",
       "url":"https://github.com/WordPress/gutenberg.git"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "advanced-custom-fields/advanced-custom-fields-pro",
+        "version": "5.7.12",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k={%WP_PLUGIN_ACF_KEY}&t={%version}"
+        },
+        "require": {
+          "ffraenz/private-composer-installer": "^2.0"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "gravityforms/gravityforms",
+        "version": "2.4.10.7",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "http://www.gravityhelp.com/wp-content/plugins/gravitymanager/api.php?op=get_plugin&slug=gravityforms&key={%WP_PLUGIN_GF_KEY}"
+        },
+        "require": {
+          "gotoandplay/gravityforms-composer-installer": "^1.0"
+        }
+      }
     }
   ],
   "require": {
@@ -43,14 +73,15 @@
     "wpackagist-plugin/regenerate-thumbnails": "3.0.2",
     "moderntribe/gutenpanels": "dev-master",
 
-    "moderntribe/square1-assets": "dev-feature/monorepo",
-    "moderntribe/square1-cache": "dev-feature/monorepo",
-    "moderntribe/square1-cli": "dev-feature/monorepo",
-    "moderntribe/square1-container": "dev-feature/monorepo",
-    "moderntribe/square1-nav": "dev-feature/monorepo",
-    "moderntribe/square1-object-meta": "dev-feature/monorepo",
-    "moderntribe/square1-post-type": "dev-feature/monorepo",
-    "moderntribe/square1-taxonomy": "dev-feature/monorepo",
+    "moderntribe/square1-acf": "2.0.0",
+    "moderntribe/square1-assets": "2.0.0",
+    "moderntribe/square1-cache": "2.0.0",
+    "moderntribe/square1-cli": "2.0.0",
+    "moderntribe/square1-container": "2.0.0",
+    "moderntribe/square1-nav": "2.0.0",
+    "moderntribe/square1-object-meta": "2.0.0",
+    "moderntribe/square1-post-type": "2.0.0",
+    "moderntribe/square1-taxonomy": "2.0.0",
 
     "vlucas/phpdotenv": "^3.0",
     "humanmade/s3-uploads":"1.1.0",
@@ -70,6 +101,7 @@
     "wp-cli/wp-cli": "^2.2.0",
     "lucatume/wp-browser": "^2.2.14",
     "lucatume/function-mocker": "~1.0",
+    "moderntribe/square1-generators": "2.0.0",
     "php-http/httplug": "^1.1",
     "filp/whoops": "^2.2@dev",
     "wordpress/gutenberg": "dev-master",

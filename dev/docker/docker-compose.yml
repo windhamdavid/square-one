@@ -30,6 +30,7 @@ services:
       environment:
         - COMPOSER_ALLOW_SUPERUSER=1
         - COMPOSER_CACHE_DIR=/application/composer-cache
+        - PAGER=more
         - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/application/www/vendor/bin
 
     webserver:
