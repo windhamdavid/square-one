@@ -88,13 +88,14 @@
   },
   "autoload": {
     "psr-4": {
-      "Tribe\\Project\\":"wp-content/plugins/core/src"
+      "Tribe\\Project\\":"wp-content/plugins/core/src",
+      "Tribe\\Gutenpanels\\":"wp-content/plugins/gutenpanels/src/php"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tribe\\Tests\\": "dev/tests/tests/_support/Classes/",
-      "Tribe\\Gutenpanels\\Tests\\": "wp-content/plugins/gutenpanels/tests/_support"
+      "Tribe\\Gutenpanels\\Tests\\": "wp-content/plugins/gutenpanels/tests/codeception/_support",
+      "Tribe\\Gutenpanels\\": "wp-content/plugins/gutenpanels/tests/codeception/unit/Tribe/Gutenpanels"
     }
   }
 }
