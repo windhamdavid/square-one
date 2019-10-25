@@ -13,22 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Composer Install
+      - name: Install
         run: |
-          printf '{ "github-oauth": { "github.com": "%s" } }\n' "${{ secrets.GH_CI_TOKEN }}" >> /root/.composer/auth.json
-          echo COMPOSER_HOME
-          composer install --ignore-platform-reqs --no-dev --optimize-autoloader
-        env:
-          WP_PLUGIN_ACF_KEY: ${{ secrets.WP_PLUGIN_ACF_KEY }}
-          WP_PLUGIN_GF_KEY: ${{ secrets.WP_PLUGIN_GF_KEY }}
-
-      - name: Yarn install
-        run: |
-          nvm use
-          cp local-config-sample.json local-config.json
-          yarn install
-
-      - name: Gulp Build
-        run: |
-          npm install -g gulp-cli
-          gulp dist
+          sudo bash dev/docker/global/start.sh
+          sudo bash dev/docker/start.sh
+          sudo sed -i '1s/^/nameserver 127.0.0.1\n/' /etc/resolv.conf
