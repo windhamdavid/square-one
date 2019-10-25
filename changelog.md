@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2019.10
+* Changed: Updated core plugin to work with the Tribe Libs monorepo
+* Changed: Loosened version constrain on Tribe Libs packages to "^2.0"
+
 ## 2019.09
 * Changed: Cleaned up the `Page_Title` Class for readability and code standards
 
