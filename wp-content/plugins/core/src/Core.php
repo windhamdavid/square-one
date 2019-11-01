@@ -3,6 +3,7 @@
 namespace Tribe\Project;
 
 use Tribe\Libs\Container\Container_Provider;
+use Tribe\Project\Blocks\Blocks_Provider;
 use Tribe\Project\Service_Providers\Admin_Provider;
 use Tribe\Project\Service_Providers\Asset_Provider;
 use Tribe\Project\Cache\Cache_Provider;
@@ -54,6 +55,8 @@ class Core {
 
 	private function load_service_providers() {
 		$this->providers['container'] = new Container_Provider();
+
+		$this->providers['blocks'] = new Blocks_Provider();
 
 		// keep these in alphabetical order, it makes the list easier to skim
 		$this->providers['admin']            = new Admin_Provider();
