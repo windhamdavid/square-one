@@ -22,6 +22,8 @@ class Blocks_Provider extends Provider {
 			return [
 				new Image_Text( $container[ self::BUILDER_FACTORY ] ),
 				new Image_Text_Paragraph( $container[ self::BUILDER_FACTORY ] ),
+				new Accordion( $container[ self::BUILDER_FACTORY ] ),
+				new Accordion_Section( $container[ self::BUILDER_FACTORY ] ),
 			];
 		};
 
