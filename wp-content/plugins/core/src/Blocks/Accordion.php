@@ -19,8 +19,8 @@ class Accordion extends Block_Type_Config {
 					->add_field(
 						$this->factory->sidebar()->field()->image_select( 'layout' )
 							->set_label( 'Layout' )
-							->add_option( 'stacked', 'Stacked', 'https://example.com/stacked.png' )
-							->add_option( 'inline', 'Inline', 'https://example.com/inline.png' )
+							->add_option( 'stacked', 'Stacked', 'https://via.placeholder.com/100x60.png?text=Stacked' )
+							->add_option( 'inline', 'Inline', 'https://via.placeholder.com/100x60.png?text=Inline' )
 							->set_default( 'stacked' )
 							->build()
 					)

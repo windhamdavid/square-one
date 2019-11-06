@@ -19,8 +19,8 @@ class Image_Text extends Block_Type_Config {
 					->add_field(
 						$this->factory->sidebar()->field()->image_select( 'alignment' )
 							->set_label( 'Layout' )
-							->add_option( 'image-left', 'Left', 'https://example.com/left.png' )
-							->add_option( 'image-right', 'Right', 'https://example.com/right.png' )
+							->add_option( 'image-left', 'Left', 'https://via.placeholder.com/100x60.png?text=Left' )
+							->add_option( 'image-right', 'Right', 'https://via.placeholder.com/100x60.png?text=Right' )
 							->set_default( 'image-left' )
 							->build()
 					)
