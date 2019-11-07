@@ -12,8 +12,8 @@ class Accordion extends Block_Type_Config {
 		return $this->factory->block( self::NAME )
 			->set_label( 'Accordion' )
 			->set_dashicon( 'menu-alt3' )
-			->add_layout_property( 'grid-template-areas', "content\naccordion" )
-			->add_conditional_layout_property( 'grid-template-areas', 'content accordion', 'layout', '==', 'inline' )
+			->add_layout_property( 'grid-template-areas', "'content' 'accordion'" )
+			->add_conditional_layout_property( 'grid-template-areas', "'content accordion accordion'", 'layout', '==', 'inline' )
 			->add_sidebar_section(
 				$this->factory->sidebar()->section()->set_label( 'Layout Settings' )
 					->add_field(
